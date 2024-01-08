@@ -52,8 +52,20 @@ const Theme = () => {
                 }
               }}
             >
-              <Image src={theme.img} alt={theme.value} width={16} height={16} />
-              <p className='font-semibold text-sm'>{theme.label}</p>
+              <Image
+                src={theme.img}
+                alt={theme.value}
+                width={16}
+                height={16}
+                className={`${mode === theme.value && 'active-theme'}`}
+              />
+              <p
+                className={`font-semibold text-sm ${
+                  mode === theme.value && 'text-orange-500'
+                }`}
+              >
+                {theme.label}
+              </p>
             </div>
           ))}
         </div>
