@@ -24,11 +24,11 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${inter.className} ${poppins.variable} bg-gray-50 dark:bg-gray-900`}
+        className={`${inter.className} ${poppins.variable} bg-gray-50 dark:bg-gray-900 dark:text-white`}
       >
         <ThemeProvider>
           <Header />
-          {children}
+          <main>{children}</main>
         </ThemeProvider>
       </body>
     </html>

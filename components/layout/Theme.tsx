@@ -38,11 +38,11 @@ const Theme = () => {
         )}
       </div>
       {isOpen && (
-        <div className='absolute mt-3 -left-6 bg-gray-100 shadow-lg z-10 rounded border py-3 min-w-32 dark:bg-gray-600 dark:border-gray-600'>
+        <div className='absolute top-8 -left-6 bg-gray-100 shadow-lg z-10 rounded border min-w-32 dark:bg-gray-600 dark:border-gray-600'>
           {themes.map((theme) => (
             <div
               key={theme.value}
-              className='flex gap-2 items-center px-2.5 py-2 cursor-pointer'
+              className='flex gap-2 items-center p-3 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-500'
               onClick={() => {
                 setMode(theme.value);
                 if (theme.value !== 'system') {
@@ -50,6 +50,7 @@ const Theme = () => {
                 } else {
                   localStorage.removeItem('theme');
                 }
+                setIsOpen(false);
               }}
             >
               <Image
