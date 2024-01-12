@@ -34,7 +34,7 @@ const Header = async () => {
             Crypto<span className='text-orange-500'>Tracker</span>
           </p>
         </Link>
-        <div className='flex gap-8 sm:gap-6 items-center relative'>
+        <div className='flex gap-2 sm:gap-8 items-center relative'>
           <ul className='hidden sm:flex gap-4 text-xl items-center'>
             <li className='cursor-pointer hover:text-orange-500 transition-all duration-200 flex gap-1'>
               <Image

@@ -42,13 +42,13 @@ export default async function Home() {
     <div className='flex p-4 items-center w-full sm:w-10/12 min-h-[calc(100vh_-_83.26px)] mx-auto text-center sm:text-left gap-4 justify-center'>
       <div className='flex flex-col flex-1 h-full justify-center items-center'>
         <div className='flex flex-col gap-2 mb-4 sm:mb-0'>
-          <h1 className='text-3xl sm:text-5xl mb-2'>
+          <h1 className='text-4xl sm:text-6xl mb-2'>
             Find your favorite cryptocurrency and its current market value
           </h1>
-          <h2 className='text-3xl'>Charts and market movement available</h2>
-          <h2 className='text-2xl text-gray-400'>
+          <h2 className='text-4xl'>Charts and market movement available</h2>
+          <h3 className='text-3xl text-gray-400'>
             See historic data for every cryptocurrency
-          </h2>
+          </h3>
           <p className='text-xl text-gray-400'>
             The global crypto market cap is $
             {millify(globalMarketData.data.total_market_cap.usd, {
@@ -80,7 +80,7 @@ export default async function Home() {
                 alt='coingecko logo'
                 width='120'
                 height='120'
-                className='w-32 sm:w-1/4 sm:mx-0'
+                className='w-32 sm:w-1/5 sm:mx-0'
               />
             </Link>
           </div>
