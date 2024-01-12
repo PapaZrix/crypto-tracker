@@ -3,8 +3,23 @@ import React from 'react';
 import Theme from './Theme';
 import Link from 'next/link';
 import MobileNav from './MobileNav';
+import SearchForm from '../search/SearchForm';
 
-const Header = () => {
+async function getAllCoins() {
+  const res = await fetch(
+    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&locale=en'
+  );
+
+  if (!res.ok) throw new Error('Failed to fetch data');
+
+  const coins = await res.json();
+
+  return coins;
+}
+
+const Header = async () => {
+  const coins = await getAllCoins();
+
   return (
     <header className='sticky md:relative top-0 z-50 shadow-sm bg-white dark:bg-gray-900 border-b-[1px] dark:border-orange-500 font-semibold'>
       <nav className='p-3 w-11/12 sm:p-5 sm:w-10/12 mx-auto flex justify-between items-center'>
@@ -19,7 +34,7 @@ const Header = () => {
             Crypto<span className='text-orange-500'>Tracker</span>
           </p>
         </Link>
-        <div className='flex gap-8 sm:gap-4 items-center'>
+        <div className='flex gap-8 sm:gap-6 items-center relative'>
           <ul className='hidden sm:flex gap-4 text-xl items-center'>
             <li className='cursor-pointer hover:text-orange-500 transition-all duration-200 flex gap-1'>
               <Image
@@ -44,6 +59,7 @@ const Header = () => {
           </ul>
           <Theme />
           <MobileNav />
+          <SearchForm coins={coins} />
         </div>
       </nav>
     </header>

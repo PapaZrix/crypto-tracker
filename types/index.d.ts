@@ -11,3 +11,11 @@ export type TrendingCoin = {
     };
   };
 };
+
+export type GlobalMarketData = {
+  data: {
+    active_cryptocurrencies: number;
+    total_market_cap: { usd: number };
+    market_cap_change_percentage_24h_usd: number;
+  };
+};

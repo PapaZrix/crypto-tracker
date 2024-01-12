@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${inter.className} ${poppins.variable} bg-gray-50 dark:bg-gray-900 dark:text-white`}
+        className={`${inter.className} ${poppins.variable} bg-gray-50 dark:bg-gray-900 dark:text-white scrollbar scrollbar-w-2 scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-gray-200 scrollbar-thumb-gray-300 dark:scrollbar-track-gray-500 dark:scrollbar-thumb-gray-600`}
       >
         <ThemeProvider>
           <Header />
