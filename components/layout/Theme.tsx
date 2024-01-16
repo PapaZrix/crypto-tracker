@@ -38,7 +38,7 @@ const Theme = () => {
         )}
       </div>
       {isOpen && (
-        <div className='absolute top-8 -left-6 bg-gray-100 shadow-lg z-10 rounded border min-w-32 dark:bg-gray-600 dark:border-gray-600'>
+        <div className='absolute top-7 -left-14 sm:top-9 sm:-left-10 bg-gray-100 shadow-lg z-10 rounded border min-w-32 dark:bg-gray-600 dark:border-gray-600'>
           {themes.map((theme) => (
             <div
               key={theme.value}

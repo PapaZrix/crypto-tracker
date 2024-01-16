@@ -42,14 +42,16 @@ export default async function Home() {
     <div className='flex p-4 items-center w-full sm:w-10/12 min-h-[calc(100vh_-_83.26px)] mx-auto text-center sm:text-left gap-4 justify-center'>
       <div className='flex flex-col flex-1 h-full justify-center items-center'>
         <div className='flex flex-col gap-2 mb-4 sm:mb-0'>
-          <h1 className='text-4xl sm:text-6xl mb-2'>
+          <h1 className='text-3xl sm:text-6xl mb-2'>
             Find your favorite cryptocurrency and its current market value
           </h1>
-          <h2 className='text-4xl'>Charts and market movement available</h2>
-          <h3 className='text-3xl text-gray-400'>
+          <h2 className='hidden sm:block text-3xl'>
+            Charts and market movement available
+          </h2>
+          <h3 className='hidden sm:block text-2xl text-gray-400'>
             See historic data for every cryptocurrency
           </h3>
-          <p className='text-xl text-gray-400'>
+          <p className='text-md max-w-xs mx-auto sm:max-w-max sm:mx-0 sm:text-xl text-gray-400'>
             The global crypto market cap is $
             {millify(globalMarketData.data.total_market_cap.usd, {
               precision: 2,

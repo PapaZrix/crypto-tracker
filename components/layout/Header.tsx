@@ -4,6 +4,7 @@ import Theme from './Theme';
 import Link from 'next/link';
 import MobileNav from './MobileNav';
 import SearchForm from '../search/SearchForm';
+import { sidebarLinks } from '@/constants';
 
 async function getAllCoins() {
   const res = await fetch(
@@ -21,8 +22,8 @@ const Header = async () => {
   const coins = await getAllCoins();
 
   return (
-    <header className='sticky md:relative top-0 z-50 shadow-sm bg-white dark:bg-gray-900 border-b-[1px] dark:border-orange-500 font-semibold'>
-      <nav className='p-3 w-11/12 sm:p-5 sm:w-10/12 mx-auto flex justify-between items-center'>
+    <header className='sticky md:relative top-0 z-50 shadow-sm bg-white dark:bg-gray-900 border-b-[1px] dark:border-orange-500'>
+      <nav className='px-4 py-2 sm:p-5 sm:w-10/12 mx-auto flex justify-between items-center relative'>
         <Link href='/' className='flex gap-2 items-center'>
           <Image
             src='/assets/images/logo.png'
@@ -34,32 +35,33 @@ const Header = async () => {
             Crypto<span className='text-orange-500'>Tracker</span>
           </p>
         </Link>
-        <div className='flex gap-2 sm:gap-8 items-center relative'>
+        <div className='hidden sm:flex gap-4 items-center relative'>
           <ul className='hidden sm:flex gap-4 text-xl items-center'>
-            <li className='cursor-pointer hover:text-orange-500 transition-all duration-200 flex gap-1'>
-              <Image
-                src='/assets/icons/fire.svg'
-                alt='popular'
-                width={25}
-                height={10}
-                className='dark:invert'
-              />
-              <Link href='/popular'>Popular</Link>
-            </li>
-            <li className='cursor-pointer hover:text-orange-500 transition-all duration-200 flex gap-1'>
-              <Image
-                src='/assets/icons/exchanges.svg'
-                alt='popular'
-                width={25}
-                height={10}
-                className='dark:invert'
-              />
-              <Link href='/exchanges'>Exchanges</Link>
-            </li>
+            {sidebarLinks.map((link) => (
+              <li
+                key={link.value}
+                className='cursor-pointer flex gap-1 hover:text-orange-500 transition-all duration-200'
+              >
+                <Link href={link.route}>
+                  <Image
+                    src={link.img}
+                    alt={link.value}
+                    width={25}
+                    height={10}
+                    className='dark:invert'
+                  />
+                </Link>
+                <p>{link.value}</p>
+              </li>
+            ))}
           </ul>
           <Theme />
-          <MobileNav />
           <SearchForm coins={coins} />
+        </div>
+        <div className='flex sm:hidden gap-4 items-center'>
+          <SearchForm coins={coins} />
+          <Theme />
+          <MobileNav />
         </div>
       </nav>
     </header>

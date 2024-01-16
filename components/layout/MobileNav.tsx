@@ -18,8 +18,8 @@ function NavContent({ isOpen, handleClick }: NavContentProps) {
           !isOpen && '-translate-x-full'
         } transition-transform duration-300 ease-in-out dark:bg-gray-700`}
       >
-        <div className='flex'>
-          <Link href='/' className='px-6 py-3 flex gap-2 items-center'>
+        <div className='flex w-full justify-between'>
+          <Link href='/' className='p-3 flex gap-2 items-center'>
             <Image
               src='/assets/images/logo.png'
               alt='logo'
@@ -36,7 +36,7 @@ function NavContent({ isOpen, handleClick }: NavContentProps) {
             width={30}
             height={30}
             onClick={handleClick}
-            className='cursor-pointer dark:invert'
+            className='cursor-pointer dark:invert mr-2'
           />
         </div>
         <div className='h-full mt-6 p-6 flex flex-col gap-2'>

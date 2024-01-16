@@ -13,7 +13,7 @@ interface Coin {
 function Trending({ name, img, percentage, price, id }: Coin) {
   return (
     <Link href={`/coin/${id}`}>
-      <div className='bg-gray-200 p-8 flex flex-col justify-between gap-4 rounded-xl shadow-md dark:bg-gray-800 dark:shadow-orange-500 text-sm h-44'>
+      <div className='bg-gray-200 p-4 sm:p-8 flex flex-col justify-center sm:justify-between gap-4 rounded-xl shadow-md dark:bg-gray-800 dark:shadow-orange-500 text-sm h-36 sm:h-44'>
         <div className='flex gap-2 w-full items-center'>
           <Image
             src={img}
