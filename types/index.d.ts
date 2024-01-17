@@ -67,6 +67,4 @@ export type CoinPageParams = {
 
 export type Ticker = [timestamp: Date, price: number];
 
-export type GraphData = {
-  prices: [Ticker[]];
-};
+export type GraphData = [Ticker[]];

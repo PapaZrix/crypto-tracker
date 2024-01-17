@@ -4,11 +4,17 @@ import { themes } from '@/constants';
 import { useTheme } from 'next-themes';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import Loader from './Loader';
 
 const Theme = () => {
   const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleClickOutside = () => {
     setIsOpen(false);
@@ -16,10 +22,12 @@ const Theme = () => {
 
   const ref = useOnClickOutside(handleClickOutside);
 
+  if (!mounted) return <Loader />;
+
   return (
     <div className='relative' ref={ref}>
       <div className='cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
-        {theme === 'light' ? (
+        {theme === 'light' || theme === 'system' ? (
           <Image
             src='/assets/icons/sun.svg'
             width={20}

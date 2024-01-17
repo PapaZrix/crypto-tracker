@@ -5,12 +5,16 @@ import TopInfo from '@/components/coin/coin-page/TopInfo';
 import { useState, useEffect, useMemo } from 'react';
 import { CoinPageParams, Currency, GraphData } from '@/types';
 import Loader from '@/components/layout/Loader';
+import useGraphData from '@/hooks/useGraphData';
+import PriceGraph from '@/components/coin/coin-page/PriceGraph';
 
 export default function CoinPage({ params }: { params: { id: string } }) {
+  const { isLoading, graphData, getGraphData } = useGraphData();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
     currencies[0]
   );
   const [coin, setCoin] = useState<CoinPageParams | null>(null);
+  const [graphRange, setGraphRange] = useState(30);
 
   useEffect(() => {
     const getCoin = async (id: string) => {
@@ -21,6 +25,11 @@ export default function CoinPage({ params }: { params: { id: string } }) {
 
     getCoin(params.id);
   }, []);
+
+  useEffect(() => {
+    // @ts-ignore
+    getGraphData(params.id, selectedCurrency.name, graphRange);
+  }, [selectedCurrency, graphRange]);
 
   const handleCurrencyChange = (
     event: React.MouseEvent<HTMLLIElement>
@@ -33,7 +42,9 @@ export default function CoinPage({ params }: { params: { id: string } }) {
     });
   };
 
-  const handleGraphRange = () => {};
+  const handleGraphRange = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setGraphRange(Number(event.currentTarget.value));
+  };
 
   if (!coin) {
     return (
@@ -44,12 +55,24 @@ export default function CoinPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className='flex flex-col p-5 w-10/12 mx-auto'>
+    <div className='mt-4 flex flex-col p-5 w-8/12 mx-auto'>
       <TopInfo
         coin={coin}
         selectedCurrency={selectedCurrency}
         handleClick={handleCurrencyChange}
       />
+      <div className='my-4 flex flex-col gap-4 items-center h-80'>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <PriceGraph
+            graphData={graphData}
+            graphRange={graphRange}
+            handleGraphRange={handleGraphRange}
+            selectedCurrency={selectedCurrency}
+          />
+        )}
+      </div>
     </div>
   );
 }
