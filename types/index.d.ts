@@ -64,3 +64,9 @@ export type CoinPageParams = {
     circulating_supply: number;
   };
 };
+
+export type Ticker = [timestamp: Date, price: number];
+
+export type GraphData = {
+  prices: [Ticker[]];
+};

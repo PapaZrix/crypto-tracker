@@ -1,9 +1,9 @@
 'use client';
 
-import { currencies, graphRanges } from '@/constants';
+import { currencies } from '@/constants';
 import TopInfo from '@/components/coin/coin-page/TopInfo';
-import { useState, useEffect } from 'react';
-import { CoinPageParams, Currency } from '@/types';
+import { useState, useEffect, useMemo } from 'react';
+import { CoinPageParams, Currency, GraphData } from '@/types';
 import Loader from '@/components/layout/Loader';
 
 export default function CoinPage({ params }: { params: { id: string } }) {
@@ -32,6 +32,8 @@ export default function CoinPage({ params }: { params: { id: string } }) {
       symbol: currency?.slice(6),
     });
   };
+
+  const handleGraphRange = () => {};
 
   if (!coin) {
     return (

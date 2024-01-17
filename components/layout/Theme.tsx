@@ -1,13 +1,13 @@
 'use client';
 
 import { themes } from '@/constants';
-import { useTheme } from '@/providers/ThemeProvider';
+import { useTheme } from 'next-themes';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import Image from 'next/image';
 import { useState } from 'react';
 
 const Theme = () => {
-  const { mode, setMode } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClickOutside = () => {
@@ -19,7 +19,7 @@ const Theme = () => {
   return (
     <div className='relative' ref={ref}>
       <div className='cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
-        {mode === 'light' ? (
+        {theme === 'light' ? (
           <Image
             src='/assets/icons/sun.svg'
             width={20}
@@ -39,33 +39,28 @@ const Theme = () => {
       </div>
       {isOpen && (
         <div className='absolute top-7 -left-14 sm:top-9 sm:-left-10 bg-gray-100 shadow-lg z-10 rounded border min-w-32 dark:bg-gray-600 dark:border-gray-600'>
-          {themes.map((theme) => (
+          {themes.map((mode) => (
             <div
-              key={theme.value}
+              key={mode.value}
               className='flex gap-2 items-center p-3 cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-500'
               onClick={() => {
-                setMode(theme.value);
-                if (theme.value !== 'system') {
-                  localStorage.theme = theme.value;
-                } else {
-                  localStorage.removeItem('theme');
-                }
+                setTheme(mode.value);
                 setIsOpen(false);
               }}
             >
               <Image
-                src={theme.img}
-                alt={theme.value}
+                src={mode.img}
+                alt={mode.value}
                 width={16}
                 height={16}
-                className={`${mode === theme.value && 'active-theme'}`}
+                className={`${theme === mode.value && 'active-theme'}`}
               />
               <p
                 className={`font-semibold text-sm ${
-                  mode === theme.value && 'text-orange-500'
+                  theme === mode.value && 'text-orange-500'
                 }`}
               >
-                {theme.label}
+                {mode.label}
               </p>
             </div>
           ))}
