@@ -6,7 +6,7 @@ import millify from 'millify';
 
 async function getTrendingCoins() {
   const res = await fetch('https://api.coingecko.com/api/v3/search/trending', {
-    next: { revalidate: 3600 },
+    next: { revalidate: 600 },
   });
 
   if (!res.ok) throw new Error('Failed to fetch data');
@@ -60,7 +60,7 @@ export default async function Home() {
             <span
               className={
                 globalMarketData.data.market_cap_change_percentage_24h_usd > 0
-                  ? 'text-emerald-600'
+                  ? 'text-emerald-500'
                   : 'text-red-500'
               }
             >

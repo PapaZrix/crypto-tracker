@@ -9,14 +9,20 @@ type ThemeContextProps = {
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
+const STORED_THEME = localStorage.getItem('theme');
+
 export default function ThemeProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState('');
 
   const handleThemeChange = () => {
+    if (typeof document === undefined) {
+      document.documentElement.classList.add(STORED_THEME ?? '');
+    }
+
     if (
       localStorage.theme === 'dark' ||
       (!('theme' in localStorage) &&

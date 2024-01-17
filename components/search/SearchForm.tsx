@@ -55,7 +55,7 @@ function SearchForm({ coins }: { coins: Coin[] }) {
       {isOpen && (
         <div
           ref={ref}
-          className='bg-white sm:bg-gray-100 fixed sm:absolute top-0 sm:-top-2 left-0 z-50 sm:rounded-xl w-full h-full font-normal dark:bg-[#222531] dark:sm:bg-gray-700 flex flex-col gap-2 sm:h-64 mt-0 sm:mt-2 sm:p-2 border dark:sm:border-gray-500'
+          className='bg-white sm:bg-gray-100 fixed sm:absolute top-0 sm:-top-2 left-0 z-50 sm:rounded-xl w-full h-full font-normal sm:shadow-md sm:dark:shadow-orange-500 dark:bg-[#222531] dark:sm:bg-gray-700 flex flex-col gap-2 sm:h-64 mt-0 sm:mt-2 sm:p-2 border dark:sm:border-gray-500'
         >
           <div className='flex gap-2 items-center p-4 sm:p-2 sm:border-b-2 dark:border-gray-600 mobile-shadow sm:shadow-none w-full'>
             <Image

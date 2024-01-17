@@ -1,7 +1,7 @@
 'use client';
 
 import { themes } from '@/constants';
-import { useTheme } from '@/context/ThemeProvider';
+import { useTheme } from '@/providers/ThemeProvider';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import Image from 'next/image';
 import { useState } from 'react';

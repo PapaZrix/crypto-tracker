@@ -1,4 +1,4 @@
-import ThemeProvider from '@/context/ThemeProvider';
+import ThemeProvider from '@/providers/ThemeProvider';
 import './globals.css';
 import { Inter, Poppins } from 'next/font/google';
 import Header from '@/components/layout/Header';
