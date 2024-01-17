@@ -100,7 +100,7 @@ export default async function Home() {
                 percentage={Number(
                   coin.item.data.price_change_percentage_24h.usd
                 ).toFixed(2)}
-                price={Number(coin.item.data.price.slice(1)).toFixed(4)}
+                price={coin.item.data.price.slice(1)}
                 id={coin.item.id}
               />
             );

@@ -1,10 +1,10 @@
 import Dropdown from '@/components/layout/Dropdown';
-import type { CoinPageParams, SelectedCurrency } from '@/types';
+import type { CoinPageParams, Currency } from '@/types';
 import Image from 'next/image';
 
 type TopInfoProps = {
   coin: CoinPageParams | null;
-  selectedCurrency: SelectedCurrency;
+  selectedCurrency: Currency;
   handleClick: (event: React.MouseEvent<HTMLLIElement>) => void;
 };
 
@@ -43,8 +43,8 @@ export default function TopInfo({
         <div className='flex items-center gap-2'>
           <p className='text-2xl'>Current Price: </p>
           <div className='text-2xl'>
-            {selectedCurrency.symbol} {/* @ts-ignore */}
-            {coin?.market_data.current_price[selectedCurrency.name]}
+            {selectedCurrency.symbol}{' '}
+            {coin?.market_data.current_price[selectedCurrency.name ?? '']}
           </div>
         </div>
         <div className='flex items-center gap-2'>

@@ -3,11 +3,11 @@
 import { currencies, graphRanges } from '@/constants';
 import TopInfo from '@/components/coin/coin-page/TopInfo';
 import { useState, useEffect } from 'react';
-import { CoinPageParams, SelectedCurrency } from '@/types';
+import { CoinPageParams, Currency } from '@/types';
 import Loader from '@/components/layout/Loader';
 
 export default function CoinPage({ params }: { params: { id: string } }) {
-  const [selectedCurrency, setSelectedCurrency] = useState<SelectedCurrency>(
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
     currencies[0]
   );
   const [coin, setCoin] = useState<CoinPageParams | null>(null);

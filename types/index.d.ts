@@ -30,7 +30,7 @@ export type SearchCoin = {
   market_cap_rank: number;
 };
 
-export type SelectedCurrency = {
+export type Currency = {
   name: string | undefined;
   symbol: string | undefined;
 };
@@ -42,14 +42,14 @@ export type CoinPageParams = {
   description: { en: string };
   image: { large: string };
   market_data: {
-    current_price: SelectedCurrency;
-    ath: SelectedCurrency;
-    ath_date: SelectedCurrency;
-    market_cap: SelectedCurrency;
+    current_price: { [key: string]: number };
+    ath: { [key: string]: number };
+    ath_date: { [key: string]: number };
+    market_cap: { [key: string]: number };
     market_cap_rank: number;
-    total_volume: SelectedCurrency;
-    high_24h: SelectedCurrency;
-    low_24h: SelectedCurrency;
+    total_volume: { [key: string]: number };
+    high_24h: { [key: string]: number };
+    low_24h: { [key: string]: number };
     price_change_24h: number;
     price_change_percentage_24h: number;
     price_change_percentage_7d: number;
@@ -59,8 +59,8 @@ export type CoinPageParams = {
     price_change_percentage_200d: number;
     price_change_percentage_1y: number;
     market_cap_change_percentage_24h: number;
-    price_change_24h_in_currency: SelectedCurrency;
-    price_change_percentage_24h_in_currency: SelectedCurrency;
+    price_change_24h_in_currency: { [key: string]: number };
+    price_change_percentage_24h_in_currency: { [key: string]: number };
     circulating_supply: number;
   };
 };
