@@ -22,6 +22,7 @@ export default function useGraphData() {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
+        next: { revalidate: 600 },
       });
 
       if (!res.ok) router.push('/404');

@@ -18,7 +18,9 @@ export default function CoinPage({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     const getCoin = async (id: string) => {
-      const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`);
+      const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`, {
+        next: { revalidate: 600 },
+      });
       const coin = await res.json();
       setCoin(coin);
     };
@@ -53,7 +55,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-
+  console.log(graphRange);
   return (
     <div className='mt-4 flex flex-col p-5 w-8/12 mx-auto'>
       <TopInfo

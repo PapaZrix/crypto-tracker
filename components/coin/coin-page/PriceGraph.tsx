@@ -10,6 +10,7 @@ import {
   YAxis,
   Tooltip,
   Line,
+  PolarGrid,
 } from 'recharts';
 import CustomTooltip from './CustomTooltip';
 
@@ -62,7 +63,7 @@ export default function PriceGraph({
               bottom: 5,
             }}
           >
-            <CartesianGrid strokeDasharray='1 1' />
+            <CartesianGrid strokeDasharray='1 1' vertical={false} />
             <XAxis dataKey='Date' dy={8} />
             <YAxis type='number' dy={-5} domain={['dataMin', 'dataMax']} />
             <Tooltip
@@ -77,6 +78,7 @@ export default function PriceGraph({
               dataKey='Price'
               stroke='#f97316'
               activeDot={{ r: 8 }}
+              style={{ zIndex: '100' }}
             />
           </LineChart>
         </ResponsiveContainer>
