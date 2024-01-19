@@ -39,7 +39,7 @@ export default function useGraphData() {
 
         return {
           Date: date,
-          Price: p.toFixed(2),
+          Price: Number(p.toFixed(2)),
           Time: new Date(timestamp).toLocaleTimeString(),
         };
       });

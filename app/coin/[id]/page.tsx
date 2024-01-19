@@ -2,7 +2,7 @@
 
 import { currencies } from '@/constants';
 import TopInfo from '@/components/coin/coin-page/TopInfo';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { CoinPageParams, Currency, GraphData } from '@/types';
 import Loader from '@/components/layout/Loader';
 import useGraphData from '@/hooks/useGraphData';
@@ -55,25 +55,22 @@ export default function CoinPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-  console.log(graphRange);
+
   return (
-    <div className='mt-4 flex flex-col p-5 w-8/12 mx-auto'>
+    <div className='mt-4 flex flex-col p-5 w-9/12 mx-auto'>
       <TopInfo
         coin={coin}
         selectedCurrency={selectedCurrency}
         handleClick={handleCurrencyChange}
       />
-      <div className='my-4 flex flex-col gap-4 items-center h-80'>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <PriceGraph
-            graphData={graphData}
-            graphRange={graphRange}
-            handleGraphRange={handleGraphRange}
-            selectedCurrency={selectedCurrency}
-          />
-        )}
+      <div className='my-4 flex flex-col gap-4 items-center h-96'>
+        <PriceGraph
+          graphData={graphData}
+          graphRange={graphRange}
+          handleGraphRange={handleGraphRange}
+          selectedCurrency={selectedCurrency}
+          isLoading={isLoading}
+        />
       </div>
     </div>
   );
