@@ -12,12 +12,24 @@ body {
   color: rgb(249 115 22) !important;
 }
 
-.recharts-cartesian-grid {
-  width: 300px;
+table {
+  min-width: max-content;
 }
 
-.recharts-cartesian-grid-horizontal {
-  width: 300px;
+table thead {
+  position: sticky;
+  top: 0;
+  text-align: left;
+  z-index: 10;
+}
+
+table th,
+table td {
+  padding: 12px 8px 12px 8px;
+}
+
+table td {
+  text-align: left;
 }
 
 @layer utilities {

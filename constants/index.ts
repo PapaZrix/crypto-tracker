@@ -57,3 +57,11 @@ export const graphRanges = [
   { days: 90, symbol: '3M' },
   { days: 365, symbol: '1Y' },
 ];
+
+export const filters = [
+  { filter_name: 'Price', filter_api: 'current_price' },
+  { filter_name: '24h %', filter_api: 'price_change_percentage_24h' },
+  { filter_name: 'Market Cap', filter_api: 'market_cap' },
+  { filter_name: 'Total Volume', filter_api: 'total_volume' },
+  { filter_name: 'Circulating Supply', filter_api: 'circulating_supply' },
+];

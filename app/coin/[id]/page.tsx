@@ -67,7 +67,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-  console.log(coin);
+
   return (
     <div className='mt-4 flex flex-col p-4 sm:p-5 w-full sm:w-9/12 mx-auto'>
       <TopInfo

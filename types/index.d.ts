@@ -35,6 +35,19 @@ export type Currency = {
   symbol: string | undefined;
 };
 
+export type TableCoin = {
+  id: string;
+  name: string;
+  symbol: string;
+  image: string;
+  current_price: number;
+  market_cap_rank: number;
+  market_cap: number;
+  price_change_percentage_24h: number;
+  total_supply: number;
+  total_volume: number;
+};
+
 export type CoinPageParams = {
   id: string;
   name: string;

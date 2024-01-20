@@ -39,11 +39,8 @@ const Header = async () => {
         <div className='hidden sm:flex gap-4 items-center relative'>
           <ul className='hidden sm:flex gap-4 text-xl items-center'>
             {sidebarLinks.map((link) => (
-              <li
-                key={link.value}
-                className='cursor-pointer flex gap-1 hover:text-orange-500 transition-all duration-200'
-              >
-                <Link href={link.route}>
+              <Link key={link.value} href={link.route}>
+                <li className='cursor-pointer flex gap-1 hover:text-orange-500 transition-all duration-200'>
                   <Image
                     src={link.img}
                     alt={link.value}
@@ -51,9 +48,9 @@ const Header = async () => {
                     height={10}
                     className='dark:invert'
                   />
-                </Link>
-                <p>{link.value}</p>
-              </li>
+                  <p>{link.value}</p>
+                </li>
+              </Link>
             ))}
           </ul>
           <Theme />
