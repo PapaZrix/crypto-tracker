@@ -9,6 +9,8 @@ import useGraphData from '@/hooks/useGraphData';
 import PriceGraph from '@/components/coin/coin-page/PriceGraph';
 import HistoryTable from '@/components/coin/coin-page/HistoryTable';
 import millify from 'millify';
+import PriceInfo from '@/components/coin/coin-page/PriceInfo';
+import MarketInfo from '@/components/coin/coin-page/MarketInfo';
 
 export default function CoinPage({ params }: { params: { id: string } }) {
   const { isLoading, graphData, getGraphData } = useGraphData();
@@ -65,7 +67,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-
+  console.log(coin);
   return (
     <div className='mt-4 flex flex-col p-5 w-9/12 mx-auto'>
       <TopInfo
@@ -116,6 +118,17 @@ export default function CoinPage({ params }: { params: { id: string } }) {
         </p>
       </div>
       <HistoryTable coin={coin} selectedCurrency={selectedCurrency} />
+      <PriceInfo coin={coin} selectedCurrency={selectedCurrency} />
+      <MarketInfo coin={coin} selectedCurrency={selectedCurrency} />
+      <div className='w-full mt-6'>
+        <h2 className='text-3xl'>
+          About {coin.name} ({coin.symbol.toUpperCase()})
+        </h2>
+        <div
+          dangerouslySetInnerHTML={{ __html: coin.description.en }}
+          className='mt-3 leading-relaxed whitespace-pre-wrap'
+        ></div>
+      </div>
     </div>
   );
 }
