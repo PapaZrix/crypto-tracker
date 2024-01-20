@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 import CustomTooltip from './CustomTooltip';
 import Loader from '@/components/layout/Loader';
+import useWindowSize from '@/hooks/useWindowSize';
 import { useTheme } from 'next-themes';
 
 type PriceGraphProps = {
@@ -28,11 +29,13 @@ export default function PriceGraph({
   selectedCurrency,
   isLoading,
 }: PriceGraphProps) {
+  const { width } = useWindowSize();
   const { theme } = useTheme();
+  const textColor = theme === 'light' ? '#4b5563' : '#9ca3af';
 
   return (
     <>
-      <div className='flex gap-6 text-gray-400 dark:text-gray-500 cursor-pointer'>
+      <div className='w-full sm:w-auto text-sm sm:text-base flex gap-4 sm:gap-6 text-gray-400 dark:text-gray-500 cursor-pointer'>
         {graphRanges.map((range) =>
           range.days === graphRange ? (
             <button
@@ -58,55 +61,8 @@ export default function PriceGraph({
       {isLoading ? (
         <Loader />
       ) : (
-        <div className='flex h-full w-full mt-4'>
-          {/* <ResponsiveContainer>
-            <ComposedChart
-              data={graphData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <defs>
-                <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
-                  <stop offset='5%' stopColor='#129a74' stopOpacity={0.1} />
-                  <stop offset='95%' stopColor='#FFFFFF' stopOpacity={0.1} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray='1 1' vertical={false} />
-              <XAxis dataKey='Date' />
-              <YAxis
-                tickCount={6}
-                type='number'
-                dy={-5}
-                domain={['dataMin', 'dataMax']}
-              />
-              <Tooltip
-                content={
-                  // @ts-ignore
-                  <CustomTooltip selectedCurrency={selectedCurrency.symbol} />
-                }
-              />
-              <Line
-                dot={false}
-                type='monotone'
-                dataKey='Price'
-                stroke='#f97316'
-                activeDot={{ r: 8 }}
-              />
-              <Area
-                type='monotone'
-                dataKey='Price'
-                stroke='false'
-                strokeWidth={2}
-                fillOpacity={0.3}
-                fill='#d1d5db'
-              />
-            </ComposedChart>
-          </ResponsiveContainer> */}
-          <ResponsiveContainer width='100%' height='100%'>
+        <div className='flex h-full w-full mt-0 sm:mt-4'>
+          {width < 640 ? (
             <LineChart
               data={graphData}
               margin={{
@@ -115,6 +71,9 @@ export default function PriceGraph({
                 left: 20,
                 bottom: 5,
               }}
+              width={600}
+              height={300}
+              className='h-full w-full'
             >
               <defs>
                 <filter id='shadow' height='200%'>
@@ -128,12 +87,21 @@ export default function PriceGraph({
                 </filter>
               </defs>
               <CartesianGrid strokeDasharray='1 1' vertical={false} />
-              <XAxis dataKey='Date' dy={8} />
+              <XAxis
+                padding={{ right: 20 }}
+                className='text-base sm:text-base'
+                dataKey='Date'
+                dy={8}
+                stroke={textColor}
+              />
               <YAxis
                 tickCount={6}
                 type='number'
                 dy={-5}
                 domain={['dataMin', 'dataMax']}
+                orientation='right'
+                stroke={textColor}
+                className='text-base sm:text-base'
               />
               <Tooltip
                 content={
@@ -152,7 +120,57 @@ export default function PriceGraph({
                 strokeWidth={2}
               />
             </LineChart>
-          </ResponsiveContainer>
+          ) : (
+            <ResponsiveContainer width='100%' height='100%'>
+              <LineChart
+                data={graphData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+                className='h-full w-full'
+              >
+                <defs>
+                  <filter id='shadow' height='200%'>
+                    <feDropShadow
+                      dx='0'
+                      dy='10'
+                      stdDeviation='10'
+                      floodColor='#fb923c'
+                      floodOpacity='0.7'
+                    />
+                  </filter>
+                </defs>
+                <CartesianGrid strokeDasharray='1 1' vertical={false} />
+                <XAxis dataKey='Date' dy={8} stroke={textColor} />
+                <YAxis
+                  stroke={textColor}
+                  tickCount={6}
+                  type='number'
+                  dy={-5}
+                  domain={['dataMin', 'dataMax']}
+                />
+                <Tooltip
+                  content={
+                    // @ts-ignore
+                    <CustomTooltip selectedCurrency={selectedCurrency.symbol} />
+                  }
+                />
+                <Line
+                  dot={false}
+                  type='monotone'
+                  dataKey='Price'
+                  stroke='#f97316'
+                  strokeLinecap='round'
+                  filter='url(#shadow)'
+                  activeDot={{ r: 8 }}
+                  strokeWidth={2}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          )}
         </div>
       )}
     </>

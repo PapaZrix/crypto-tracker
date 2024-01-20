@@ -9,30 +9,34 @@ type PriceInfoProps = {
 export default function PriceInfo({ coin, selectedCurrency }: PriceInfoProps) {
   return (
     <>
-      <div className='mt-6 w-full text-gray-500'>
+      <div className='mt-6 w-full text-gray-600 dark:text-gray-400'>
         <h3 className='text-xl text-black dark:text-white bold'>
           {coin.symbol.toUpperCase()} Price Information
         </h3>
         <p className='my-2'>{`24h Low & High`}</p>
         <div className='flex items-center w-full gap-4 mt-1 text-sm'>
-          Low: {selectedCurrency.symbol}{' '}
-          {coin.market_data.low_24h[selectedCurrency.name ?? ''].toFixed(2)}
+          <span className='text-nowrap'>
+            Low: {selectedCurrency.symbol}{' '}
+            {coin.market_data.low_24h[selectedCurrency.name ?? ''].toFixed(2)}
+          </span>
           <div className='flex w-60 h-2'>
             <p className='w-1/2 h-full bg-red-500 rounded-l-lg'></p>
             <p className='w-1/2 h-full bg-green-600 rounded-r-lg'></p>
           </div>
-          High: {selectedCurrency.symbol}{' '}
-          {coin.market_data.high_24h[selectedCurrency.name ?? ''].toFixed(2)}
+          <span className='text-nowrap'>
+            High: {selectedCurrency.symbol}{' '}
+            {coin.market_data.high_24h[selectedCurrency.name ?? ''].toFixed(2)}
+          </span>
         </div>
-        <div className='mt-4 w-full flex justify-between'>
-          <div className='w-full'>
+        <div className='mt-4 w-full flex flex-col sm:flex-row justify-between gap-6 sm:gap-0'>
+          <div className='w-full flex items-center justify-between sm:block'>
             <p>All Time High</p>
             <p className='text-black dark:text-white'>
               {selectedCurrency.symbol}{' '}
               {coin.market_data.ath[selectedCurrency.name ?? '']}
             </p>
           </div>
-          <div className='w-full'>
+          <div className='w-full flex items-center justify-between sm:block'>
             <p>Price Change (24h)</p>
             <p
               className={`${checkPercentSign(
@@ -47,7 +51,7 @@ export default function PriceInfo({ coin, selectedCurrency }: PriceInfoProps) {
               %
             </p>
           </div>
-          <div className='w-full'>
+          <div className='w-full flex items-center justify-between sm:block'>
             <p>Price Change (7d)</p>
             <p
               className={`${checkPercentSign(
@@ -62,7 +66,7 @@ export default function PriceInfo({ coin, selectedCurrency }: PriceInfoProps) {
               %
             </p>
           </div>
-          <div className='w-full'>
+          <div className='w-full flex items-center justify-between sm:block'>
             <p>Price Change (14d)</p>
             <p
               className={`${checkPercentSign(

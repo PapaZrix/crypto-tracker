@@ -15,10 +15,10 @@ export default function TopInfo({
 }: TopInfoProps) {
   return (
     <>
-      <div className='flex items-center justify-between'>
-        <div className='flex items-center gap-1'>
+      <div className='flex flex-col sm:flex-row items-center justify-between'>
+        <div className='flex items-center gap-1 w-full'>
           <Image
-            className='rounded-full'
+            className='rounded-full w-10 h-10 sm:w-auto sm:h-auto'
             src={coin?.image.large ?? ''}
             alt={coin?.name ?? ''}
             width={60}
@@ -31,17 +31,17 @@ export default function TopInfo({
             </p>
           </div>
         </div>
-        <div className='flex gap-4 items-center'>
-          <p className='text-gray-400'>Currency</p>
+        <div className='flex gap-4 items-center mt-4 sm:mt-0 w-full sm:w-auto'>
+          <p className='text-gray-400 hidden sm:block'>Currency</p>
           <Dropdown
             selectedCurrency={selectedCurrency}
             handleClick={handleClick}
           />
         </div>
       </div>
-      <div className='mt-4 flex items-center gap-4'>
-        <div className='flex items-center gap-2'>
-          <p className='text-2xl'>Current Price: </p>
+      <div className='mt-6 mb-2 sm:mb-0 sm:mt-4 flex items-center gap-2 sm:gap-4'>
+        <div className='flex items-center sm:gap-2'>
+          <p className='text-2xl hidden sm:block'>Current Price: </p>
           <div className='text-2xl'>
             {selectedCurrency.symbol}{' '}
             {coin?.market_data.current_price[selectedCurrency.name ?? '']}
@@ -58,7 +58,7 @@ export default function TopInfo({
                 ].toFixed(2)}
                 %
               </p>
-              <p className='text-gray-500'>(1D)</p>
+              <p className='text-gray-400'>(1D)</p>
             </>
           ) : (
             <>
@@ -68,7 +68,7 @@ export default function TopInfo({
                 ].toFixed(2)}
                 %
               </p>
-              <p className='text-gray-500'>(1D)</p>
+              <p className='text-gray-400'>(1D)</p>
             </>
           )}
         </div>

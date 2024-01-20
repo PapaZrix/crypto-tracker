@@ -7,6 +7,19 @@ body {
   box-sizing: border-box;
 }
 
+#description a {
+  text-decoration: underline !important;
+  color: rgb(249 115 22) !important;
+}
+
+.recharts-cartesian-grid {
+  width: 300px;
+}
+
+.recharts-cartesian-grid-horizontal {
+  width: 300px;
+}
+
 @layer utilities {
   .active-theme {
     filter: invert(53%) sepia(98%) saturate(3332%) hue-rotate(0deg)

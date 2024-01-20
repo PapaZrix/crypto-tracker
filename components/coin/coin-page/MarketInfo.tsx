@@ -12,25 +12,25 @@ export default function MarketInfo({
   selectedCurrency,
 }: MarketInfoProps) {
   return (
-    <div className='mt-6 w-full'>
-      <h2 className='text-xl bold'>
+    <div className='mt-6 w-full text-gray-600 dark:text-gray-400'>
+      <h2 className='text-xl bold text-black dark:text-white'>
         {coin.symbol.toUpperCase()} Market Information
       </h2>
-      <div className='mt-2 w-full flex justify-between'>
-        <div className='w-full'>
-          <p className='text-gray-500'>Popularity</p>
+      <div className='mt-2 w-full flex flex-col sm:flex-row gap-6 sm:gap-0 justify-between'>
+        <div className='w-full flex items-center justify-between sm:block'>
+          <p>Popularity</p>
           <p>#{coin.market_data.market_cap_rank}</p>
         </div>
-        <div className='w-full'>
-          <p className='text-gray-500'>Market Cap</p>
+        <div className='w-full flex items-center justify-between sm:block'>
+          <p>Market Cap</p>
           <p>
             {millify(coin.market_data.market_cap[selectedCurrency.name ?? ''], {
               precision: 2,
             })}
           </p>
         </div>
-        <div className='w-full'>
-          <p className='text-gray-500'>Volume (24h)</p>
+        <div className='w-full flex items-center justify-between sm:block'>
+          <p>Volume (24h)</p>
           <p>
             {millify(
               coin.market_data.total_volume[selectedCurrency.name ?? ''],
@@ -40,8 +40,8 @@ export default function MarketInfo({
             )}
           </p>
         </div>
-        <div className='w-full'>
-          <p className='text-gray-500'>Circulating Supply</p>
+        <div className='w-full flex items-center justify-between sm:block'>
+          <p>Circulating Supply</p>
           <p>
             {millify(coin.market_data.circulating_supply, {
               precision: 2,

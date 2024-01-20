@@ -69,13 +69,13 @@ export default function CoinPage({ params }: { params: { id: string } }) {
   }
   console.log(coin);
   return (
-    <div className='mt-4 flex flex-col p-5 w-9/12 mx-auto'>
+    <div className='mt-4 flex flex-col p-4 sm:p-5 w-full sm:w-9/12 mx-auto'>
       <TopInfo
         coin={coin}
         selectedCurrency={selectedCurrency}
         handleClick={handleCurrencyChange}
       />
-      <div className='my-4 flex flex-col gap-4 items-center h-96'>
+      <div className='my-4 flex flex-col items-center h-64 sm:h-96'>
         <PriceGraph
           graphData={graphData}
           graphRange={graphRange}
@@ -91,14 +91,21 @@ export default function CoinPage({ params }: { params: { id: string } }) {
         </h2>
         <p className='mt-4 dark:text-[#B7BDC6]'>
           {coin.name} price is updated every 5 minutes due to API restrictions.
-          The live price of {coin.name} is {selectedCurrency.symbol}
-          {coin.market_data.current_price[selectedCurrency.name ?? '']} (
-          {coin.symbol.toUpperCase()} / {selectedCurrency.name?.toUpperCase()})
+          The live price of {coin.name} is{' '}
+          <span className='font-semibold'>
+            {selectedCurrency.symbol}
+            {coin.market_data.current_price[selectedCurrency.name ?? '']} (
+            {coin.symbol.toUpperCase()} / {selectedCurrency.name?.toUpperCase()}
+            )
+          </span>{' '}
           with a current market cap of{' '}
-          {millify(coin.market_data.market_cap[selectedCurrency.name ?? ''], {
-            precision: 2,
-          })}
-          . {coin.name} is {movement}
+          <span className='font-semibold'>
+            {millify(coin.market_data.market_cap[selectedCurrency.name ?? ''], {
+              precision: 2,
+            })}
+            .
+          </span>{' '}
+          {coin.name} is {movement}
           <span
             className={`${
               Number(coin.market_data.price_change_percentage_24h_in_currency) <
@@ -114,7 +121,9 @@ export default function CoinPage({ params }: { params: { id: string } }) {
             %
           </span>{' '}
           in the last 24 hours with a circulating supply of{' '}
-          {millify(coin.market_data.circulating_supply)}
+          <span className='font-semibold'>
+            {millify(coin.market_data.circulating_supply)}
+          </span>
         </p>
       </div>
       <HistoryTable coin={coin} selectedCurrency={selectedCurrency} />
@@ -125,6 +134,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
           About {coin.name} ({coin.symbol.toUpperCase()})
         </h2>
         <div
+          id='description'
           dangerouslySetInnerHTML={{ __html: coin.description.en }}
           className='mt-3 leading-relaxed whitespace-pre-wrap'
         ></div>

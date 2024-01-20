@@ -33,9 +33,9 @@ export default function Dropdown({
   const ref = useOnClickOutside(handleClickOutside);
 
   return (
-    <div ref={ref} className='relative'>
+    <div ref={ref} className='relative w-full sm:w-auto'>
       <button
-        className='flex justify-between items-center w-48 rounded-md border border-gray-400 dark:border-gray-600 shadow-sm px-4 py-2 bg-gray-100 dark:bg-gray-800 text-sm dark:text-white outline-none hover:border-orange-500'
+        className='flex justify-between items-center w-full sm:w-48 rounded-md border border-gray-400 dark:border-gray-600 shadow-sm px-4 py-2 bg-gray-100 dark:bg-gray-800 text-sm dark:text-white outline-none hover:border-orange-500'
         type='submit'
         onClick={() => setIsOpen(!isOpen)}
       >
