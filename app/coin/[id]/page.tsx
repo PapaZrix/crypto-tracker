@@ -7,6 +7,8 @@ import { CoinPageParams, Currency, GraphData } from '@/types';
 import Loader from '@/components/layout/Loader';
 import useGraphData from '@/hooks/useGraphData';
 import PriceGraph from '@/components/coin/coin-page/PriceGraph';
+import HistoryTable from '@/components/coin/coin-page/HistoryTable';
+import millify from 'millify';
 
 export default function CoinPage({ params }: { params: { id: string } }) {
   const { isLoading, graphData, getGraphData } = useGraphData();
@@ -15,6 +17,14 @@ export default function CoinPage({ params }: { params: { id: string } }) {
   );
   const [coin, setCoin] = useState<CoinPageParams | null>(null);
   const [graphRange, setGraphRange] = useState(30);
+  const movement =
+    Number(
+      coin?.market_data.price_change_percentage_24h_in_currency[
+        selectedCurrency.name ?? ''
+      ]
+    ) > 0
+      ? 'up'
+      : 'down';
 
   useEffect(() => {
     const getCoin = async (id: string) => {
@@ -72,6 +82,40 @@ export default function CoinPage({ params }: { params: { id: string } }) {
           isLoading={isLoading}
         />
       </div>
+      <hr className='mt-4 border-black dark:border-orange-500' />
+      <div>
+        <h2 className='text-3xl mt-4'>
+          {coin.symbol.toUpperCase()} Price Live Data
+        </h2>
+        <p className='mt-4 dark:text-[#B7BDC6]'>
+          {coin.name} price is updated every 5 minutes due to API restrictions.
+          The live price of {coin.name} is {selectedCurrency.symbol}
+          {coin.market_data.current_price[selectedCurrency.name ?? '']} (
+          {coin.symbol.toUpperCase()} / {selectedCurrency.name?.toUpperCase()})
+          with a current market cap of{' '}
+          {millify(coin.market_data.market_cap[selectedCurrency.name ?? ''], {
+            precision: 2,
+          })}
+          . {coin.name} is {movement}
+          <span
+            className={`${
+              Number(coin.market_data.price_change_percentage_24h_in_currency) <
+              0
+                ? 'text-red-500'
+                : 'text-emerald-600'
+            }`}
+          >
+            {' '}
+            {coin.market_data.price_change_percentage_24h_in_currency[
+              selectedCurrency.name ?? ''
+            ].toFixed(2)}
+            %
+          </span>{' '}
+          in the last 24 hours with a circulating supply of{' '}
+          {millify(coin.market_data.circulating_supply)}
+        </p>
+      </div>
+      <HistoryTable coin={coin} selectedCurrency={selectedCurrency} />
     </div>
   );
 }

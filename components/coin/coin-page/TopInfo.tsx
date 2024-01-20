@@ -48,18 +48,25 @@ export default function TopInfo({
           </div>
         </div>
         <div className='flex items-center gap-2'>
-          {coin?.market_data.price_change_percentage_24h.toString()[0] ===
-          '-' ? (
+          {coin?.market_data.price_change_percentage_24h_in_currency[
+            selectedCurrency.name ?? ''
+          ].toString()[0] === '-' ? (
             <>
               <p className='text-red-500 text-2xl'>
-                {coin?.market_data.price_change_percentage_24h.toFixed(2)}%
+                {coin?.market_data.price_change_percentage_24h_in_currency[
+                  selectedCurrency.name ?? ''
+                ].toFixed(2)}
+                %
               </p>
               <p className='text-gray-500'>(1D)</p>
             </>
           ) : (
             <>
-              <p className='text-green-500 text-2xl'>
-                {coin?.market_data.price_change_percentage_24h.toFixed(2)}%
+              <p className='text-emerald-600 text-2xl'>
+                {coin?.market_data.price_change_percentage_24h_in_currency[
+                  selectedCurrency.name ?? ''
+                ].toFixed(2)}
+                %
               </p>
               <p className='text-gray-500'>(1D)</p>
             </>
