@@ -68,6 +68,16 @@ export default function CoinPage({ params }: { params: { id: string } }) {
     );
   }
 
+  // RENDER ERROR SCREEN
+  if (coin.market_data.price_change_percentage_7d === 0) {
+    return (
+      <div>
+        <h1>FUCK YOU BROOOO</h1>
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <div className='mt-4 flex flex-col p-4 sm:p-5 w-full sm:w-9/12 mx-auto'>
       <TopInfo

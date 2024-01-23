@@ -38,7 +38,9 @@ export default function TableItem({
       </td>
       <td className=''>${current_price}</td>
       <td
-        className={`${checkPercentSign(price_change_percentage_24h)} text-left`}
+        className={`${checkPercentSign(
+          price_change_percentage_24h
+        )} text-center`}
       >
         {price_change_percentage_24h.toFixed(2)}%
       </td>
