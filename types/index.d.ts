@@ -40,6 +40,16 @@ export type TableCoin = {
   total_volume: number;
 };
 
+export type Exchange = {
+  name: string;
+  year_established: number;
+  country: string;
+  url: string;
+  image: string;
+  trust_score: number;
+  trust_score_rank: number;
+};
+
 export type CoinPageParams = {
   id: string;
   name: string;

@@ -13,20 +13,14 @@ body {
   text-underline-offset: 3px;
 }
 
-table thead {
-  position: sticky;
-  top: 0;
-  text-align: center;
-}
-
 table th,
 table td {
   padding: 1rem 1.5rem 1rem 1.5rem;
 }
 
-table td {
+/* table td {
   text-align: center;
-}
+} */
 
 @layer utilities {
   .active-theme {

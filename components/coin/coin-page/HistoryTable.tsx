@@ -30,17 +30,19 @@ export default function HistoryTable({
       <div className='relative overflow-x-auto'>
         <table className='mt-2 w-full table-auto'>
           <thead className='text-xs sm:text-base'>
-            <th scope='col' className='px-1 py-2 text-start pl-4'>
-              Date Comparison
-            </th>
-            <th scope='col' className='text-end pr-4'>
-              Amount Change
-            </th>
-            <th scope='col' className='text-end pr-4'>
-              % Change
-            </th>
+            <tr className='bg-gray-200 dark:bg-gray-800'>
+              <th scope='col' className='px-1 py-2 text-start pl-4'>
+                Date Comparison
+              </th>
+              <th scope='col' className='text-end pr-4'>
+                Amount Change
+              </th>
+              <th scope='col' className='text-end pr-4'>
+                % Change
+              </th>
+            </tr>
           </thead>
-          <tbody className='text-sm sm:text-base my-4'>
+          <tbody className='text-sm sm:text-base sm:leading-3 my-4'>
             {/* 1st Row */}
             <tr>
               <td className='p-1 text-start pl-4'>Today</td>

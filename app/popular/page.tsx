@@ -6,17 +6,12 @@ import { filters } from '@/constants';
 import Loader from '@/components/layout/Loader';
 import TableItem from '@/components/popular/TableItem';
 import { getCoins } from '@/utils/getCoins';
-import { CardTitle, CardHeader, CardContent, Card } from '@/components/ui/card';
-import {
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableCell,
-  TableBody,
-  Table,
-} from '@/components/ui/table';
+import { usePagination } from '@mantine/hooks';
+import Image from 'next/image';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
+import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 25;
 
 export default function PopularTable() {
   const [coins, setCoins] = useState<TableCoin[] | null>([] || null);
@@ -24,6 +19,13 @@ export default function PopularTable() {
     [] || null
   );
   const [activeFilter, setActiveFilter] = useState<any>(filters[2]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClickOutside = () => {
+    setIsOpen(false);
+  };
+
+  const ref = useOnClickOutside(handleClickOutside);
 
   useEffect(() => {
     const getFirstPageCoins = async () => {
@@ -34,6 +36,45 @@ export default function PopularTable() {
     getFirstPageCoins();
   }, []);
 
+  const pagination = usePagination({
+    total: Math.ceil((coins?.length as number) / ITEMS_PER_PAGE),
+    initialPage: 1,
+    siblings: 4,
+    onChange(page) {
+      const start = (page - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      setVisibleCoins((coins as TableCoin[]).slice(start, end));
+    },
+  });
+
+  const changePage = (page: number) => {
+    pagination.setPage(page);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  const customSort = (filter: any) => {
+    return function (a: any, b: any) {
+      // @ts-ignore
+      return (b[filter] > a[filter]) - (b[filter] < a[filter]);
+    };
+  };
+
+  const handleFilterChange = (e: React.MouseEvent<HTMLLIElement>): void => {
+    const target = e.currentTarget.id;
+    console.log(target);
+    const filter = filters.find((f) => f.filter_api === target);
+    console.log(filter);
+
+    setCoins((coins as TableCoin[]).sort(customSort(filter?.filter_api)));
+    setActiveFilter(filter);
+    setVisibleCoins((coins as TableCoin[]).slice(0, ITEMS_PER_PAGE));
+    setIsOpen(false);
+    changePage(1);
+  };
+
   if (visibleCoins?.length === 0) {
     return (
       <div className='h-[calc(100vh_-_78px)] sm:h-[calc(100vh_-_83px)] bg-gray-50 dark:bg-gray-900'>
@@ -41,65 +82,79 @@ export default function PopularTable() {
       </div>
     );
   }
-
-  //   return (
-  //     <div className='w-full max-w-5xl mx-auto overflow-x-auto'>
-  //       <Card>
-  //         <CardHeader>
-  //           <CardTitle>Cryptocurrency Coins</CardTitle>
-  //         </CardHeader>
-  //         <CardContent>
-  //           <div className='flex overflow-x-auto'>
-  //             <Table className='min-w-[1200px]'>
-  //               <TableHeader>
-  //                 <TableRow>
-  //                   <TableHead className='w-[80px] sticky left-0 bg-white'>
-  //                     Rank
-  //                   </TableHead>
-  //                   <TableHead className='max-w-[150px] sticky left-[80px] bg-white'>
-  //                     Name
-  //                   </TableHead>
-  //                   <TableHead className='hidden md:table-cell'>
-  //                     Current Price
-  //                   </TableHead>
-  //                   <TableHead className='hidden md:table-cell'>
-  //                     Price Change Percentage in 24 Hours
-  //                   </TableHead>
-  //                   <TableHead>Market Cap</TableHead>
-  //                   <TableHead>Total Volume</TableHead>
-  //                   <TableHead>Circulating Supply</TableHead>
-  //                 </TableRow>
-  //               </TableHeader>
-  //               <TableBody>
-  //                 {visibleCoins?.map((coin) => (
-  //                   <TableRow key={coin.id}>
-  //                     <TableCell {...coin}></TableCell>
-  //                   </TableRow>
-  //                 ))}
-  //               </TableBody>
-  //             </Table>
-  //           </div>
-  //         </CardContent>
-  //       </Card>
-  //     </div>
-  //   );
-  // }
+  console.log(pagination.range);
   return (
-    <div className='flex p-5 flex-col w-9/12 mx-auto'>
-      <div className='w-full'>
-        <table className='w-full'>
-          <thead className='bg-gray-200 dark:bg-gray-700'>
+    <div className='flex p-5 flex-col w-full lg:w-10/12 2xl:w-9/12 mx-auto'>
+      <div className='my-4 relative w-44 ml-auto'>
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className='bg-white dark:bg-gray-700 px-3 py-1 flex gap-4 items-center justify-between border dark:border-gray-800 w-full shadow-md cursor-pointer rounded-md'
+        >
+          Filters
+          <Image
+            src='/assets/icons/filter.svg'
+            width={20}
+            height={20}
+            alt='filter'
+            className='dark:invert'
+          />
+        </div>
+        {isOpen && (
+          <div ref={ref}>
+            <ul className='w-full absolute top-10 right-0 z-50  border bg-white rounded-md shadow-md'>
+              {filters.map((filter) =>
+                filter.filter_name === activeFilter.filter_name ? (
+                  <li
+                    id={filter.filter_api}
+                    className='cursor-pointer p-2 text-orange-500 hover:bg-gray-200 hover:dark-bg-gray-700'
+                    key={filter.filter_name}
+                    onClick={handleFilterChange}
+                  >
+                    {filter.filter_name}
+                  </li>
+                ) : (
+                  <li
+                    className='cursor-pointer p-2 hover:bg-gray-200 hover:dark-bg-gray-700'
+                    id={filter.filter_api}
+                    key={filter.filter_name}
+                    onClick={handleFilterChange}
+                  >
+                    {filter.filter_name}
+                  </li>
+                )
+              )}
+            </ul>
+          </div>
+        )}
+      </div>
+      <div className='w-full overflow-x-scroll sm:overflow-x-clip shadow-md rounded-xl border'>
+        <table className='w-full relative text-sm sm:text-base'>
+          <thead className='sticky z-40 text-center'>
             <tr>
-              <th>#</th>
-              <th className='text-start'>Name</th>
-              <th>Price</th>
-              <th>24h %</th>
-              <th className='text-end'>Market Cap</th>
-              <th className='text-end'>Total Volume</th>
-              <th className='text-end'>Circulating Supply</th>
+              <th className='text-left w-[20px] sticky left-0 top-0 sm:w-[20px] bg-gray-200 dark:bg-gray-700 z-20'>
+                #
+              </th>
+              <th className='text-start max-w-[100px] sticky left-[40px] top-0 bg-gray-200 dark:bg-gray-700 z-20'>
+                Name
+              </th>
+              <th className='text-start sticky top-0 z-10 bg-gray-200 dark:bg-gray-700'>
+                Price
+              </th>
+              <th className='sticky top-0 z-10 bg-gray-200 dark:bg-gray-700'>
+                24h %
+              </th>
+              <th className='text-end sticky top-0 z-10 bg-gray-200 dark:bg-gray-700'>
+                Market Cap
+              </th>
+              <th className='text-end sticky top-0 z-10 bg-gray-200 dark:bg-gray-700'>
+                Total Volume
+              </th>
+              <th className='text-end sticky top-0 z-10 bg-gray-200 dark:bg-gray-700'>
+                Circulating Supply
+              </th>
             </tr>
           </thead>
-          <tbody className='divide-y divide-gray-500'>
+          <tbody className='divide-y divide-gray-200 dark:divide-gray-600'>
             {visibleCoins?.map((coin) => {
               return (
                 <TableItem
@@ -119,6 +174,41 @@ export default function PopularTable() {
             })}
           </tbody>
         </table>
+      </div>
+      <div className='mt-4 flex items-center justify-center gap-4'>
+        <ul className='flex justify-center gap-4 items-center'>
+          <li
+            className='cursor-pointer'
+            onClick={() => changePage(pagination.active - 1)}
+          >
+            <BsArrowLeft size='1.5rem' />
+          </li>
+          {pagination.range.map((r) =>
+            pagination.active === r ? (
+              <li
+                onClick={() => changePage(r)}
+                className='cursor-pointer text-orange-500'
+                key={r}
+              >
+                {r}
+              </li>
+            ) : (
+              <li
+                onClick={() => changePage(r as number)}
+                className='cursor-pointer'
+                key={r}
+              >
+                {r}
+              </li>
+            )
+          )}
+          <li
+            className='cursor-pointer'
+            onClick={() => changePage(pagination.active + 1)}
+          >
+            <BsArrowRight size='1.5rem' />
+          </li>
+        </ul>
       </div>
     </div>
   );

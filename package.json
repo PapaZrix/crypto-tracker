@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mantine/hooks": "^7.4.2",
     "@tanstack/react-query": "^5.17.9",
     "@types/node": "20.10.7",
     "@types/react": "18.2.47",

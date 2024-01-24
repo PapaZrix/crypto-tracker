@@ -3,6 +3,7 @@
 import { checkPercentSign } from '@/utils/checkSign';
 import Image from 'next/image';
 import millify from 'millify';
+import { useRouter } from 'next/navigation';
 
 type TableItemProps = {
   id: string;
@@ -29,14 +30,23 @@ export default function TableItem({
   total_supply,
   market_cap_rank,
 }: TableItemProps) {
+  const router = useRouter();
   return (
-    <tr className='w-full hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer'>
-      <td className=''>{market_cap_rank}</td>
-      <td className='flex items-center gap-4'>
-        <Image src={image} width={30} height={30} alt={name} /> {name} (
-        {symbol.toUpperCase()})
+    <tr
+      onClick={() => router.push(`/coin/${id}`)}
+      className='w-full hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer'
+    >
+      <td className='w-[40px] sticky left-0 sm:w-auto sm:static bg-gray-50 dark:bg-gray-900 sm:bg-transparent sm:dark:bg-transparent z-10'>
+        {market_cap_rank}
       </td>
-      <td className=''>${current_price}</td>
+      <td className='flex items-center gap-4 sticky left-[40px] w-[175px] sm:w-full sm:static bg-gray-50 dark:bg-gray-900 sm:bg-transparent sm:dark:bg-transparent z-10'>
+        <Image src={image} width={30} height={30} alt={name} />
+        <div className='flex flex-col items-start flex-wrap gap-1 w-auto overflow-hidden sm:flex-row'>
+          <p className='text-sm sm:text-base font-semibold'>{name}</p>
+          <p className='text-sm sm:text-base'>({symbol.toUpperCase()})</p>
+        </div>
+      </td>
+      <td className='font-medium'>${current_price}</td>
       <td
         className={`${checkPercentSign(
           price_change_percentage_24h
@@ -44,9 +54,15 @@ export default function TableItem({
       >
         {price_change_percentage_24h.toFixed(2)}%
       </td>
-      <td className='text-end'>{millify(market_cap, { precision: 2 })}</td>
-      <td className='text-end'>{millify(total_volume, { precision: 2 })}</td>
-      <td className='text-end'>{millify(total_supply, { precision: 2 })}</td>
+      <td className='text-end font-medium'>
+        {millify(market_cap, { precision: 2 })}
+      </td>
+      <td className='text-end font-medium'>
+        {millify(total_volume, { precision: 2 })}
+      </td>
+      <td className='text-end font-medium'>
+        {millify(total_supply, { precision: 2 })}
+      </td>
     </tr>
   );
 }
