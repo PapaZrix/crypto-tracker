@@ -61,7 +61,7 @@ export default function TableItem({
         {millify(total_volume, { precision: 2 })}
       </td>
       <td className='text-end font-medium'>
-        {millify(total_supply, { precision: 2 })}
+        {millify(total_supply, { precision: 2 })} {symbol.toUpperCase()}
       </td>
     </tr>
   );

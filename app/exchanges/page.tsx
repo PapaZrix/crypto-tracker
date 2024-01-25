@@ -3,7 +3,7 @@ import { Exchange } from '@/types';
 
 async function getExchanges() {
   const res = await fetch('https://api.coingecko.com/api/v3/exchanges', {
-    next: { revalidate: 1200 },
+    next: { revalidate: 2400 },
   });
   const data = await res.json();
 
@@ -14,20 +14,28 @@ export default async function Exchanges() {
   const exchanges: Exchange[] = await getExchanges();
 
   return (
-    <div className='flex p-5 flex-col w-10/12 mx-auto'>
-      <div className='relative overflow-x-auto'>
-        <table className='w-full table-auto divide-y divide-gray-500'>
-          <thead>
+    <div className='flex mt-8 sm:p-5 flex-col w-full 2xl:w-10/12 mx-auto'>
+      <div className='w-full overflow-x-scroll sm:overflow-x-clip relative'>
+        <table className='w-full relative text-sm sm:text-[16px]'>
+          <thead className='w-full sticky top-0 z-40 text-center'>
             <tr>
-              <th className='pl-4 text-start'>#</th>
-              <th className='pl-4 text-start'>Name</th>
-              <th className='p-4 text-center'>Trust Score</th>
-              <th className='p-4 text-center'>Country</th>
-              <th className='p-4 text-center'>Year Established</th>
-              <th className='p-4 text-center'>Trade</th>
+              <th className='w-[20px] left-0 sm:w-[20px] text-start z-20 bg-gray-200 dark:bg-gray-700'>
+                #
+              </th>
+              <th className='text-start max-w-[100px] left-[40px] z-20 bg-gray-200 dark:bg-gray-700'>
+                Name
+              </th>
+              <th className='text-center whitespace-nowrap bg-gray-200 dark:bg-gray-700'>
+                Trust Score
+              </th>
+              <th className='text-center bg-gray-200 dark:bg-gray-700'>Country</th>
+              <th className='text-center whitespace-nowrap bg-gray-200 dark:bg-gray-700'>
+                Year Established
+              </th>
+              <th className='text-center bg-gray-200 dark:bg-gray-700'>Trade</th>
             </tr>
           </thead>
-          <tbody className='divide-y divide-gray-500'>
+          <tbody className='divide-y divide-gray-200 dark:divide-gray-600'>
             {exchanges.slice(0, 30).map((exc) => {
               return (
                 <TableItem

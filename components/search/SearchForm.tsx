@@ -82,7 +82,7 @@ function SearchForm({ coins }: { coins: Coin[] }) {
               className='cursor-pointer dark:invert'
             />
           </div>
-          <div className='p-2 sm:p-0 flex flex-col my-2 overflow-y-scroll scrollbar h-full'>
+          <div className='p-2 sm:p-0 flex flex-col my-2 overflow-y-scroll scrollbar-thin'>
             {matchingCoins?.map((coin) => (
               <Link
                 key={coin.id}

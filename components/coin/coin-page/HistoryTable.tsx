@@ -7,6 +7,7 @@ type HistoryTableProps = {
 };
 
 function getPriceChange(price: any, percentage: any): any {
+  if (percentage === undefined) return 0
   let priceChange = 0;
   if (percentage < 0) {
     priceChange = price * (percentage / 100);
@@ -107,8 +108,7 @@ export default function HistoryTable({
               >
                 {coin.market_data.price_change_percentage_7d_in_currency[
                   selectedCurrency.name ?? ''
-                ].toFixed(2)}
-                %
+                ] === undefined ? 'N/A' : coin.market_data.price_change_percentage_7d_in_currency[selectedCurrency.name ?? ''].toFixed(2).concat('%')}
               </td>
             </tr>
             {/* 3rd Row */}
@@ -139,10 +139,7 @@ export default function HistoryTable({
                   ]
                 )}`}
               >
-                {coin.market_data.price_change_percentage_30d_in_currency[
-                  selectedCurrency.name ?? ''
-                ].toFixed(2)}
-                %
+                {coin.market_data.price_change_percentage_30d_in_currency[selectedCurrency.name ?? ''] === undefined ? 'N/A' : coin.market_data.price_change_percentage_30d_in_currency[selectedCurrency.name ?? ''].toFixed(2).concat('%')}
               </td>
             </tr>
             {/* 4th Row */}
@@ -173,10 +170,7 @@ export default function HistoryTable({
                   ]
                 )}`}
               >
-                {coin.market_data.price_change_percentage_60d_in_currency[
-                  selectedCurrency.name ?? ''
-                ].toFixed(2)}
-                %
+                {coin.market_data.price_change_percentage_60d_in_currency[selectedCurrency.name ?? ''] === undefined ? 'N/A' : coin.market_data.price_change_percentage_60d_in_currency[selectedCurrency.name ?? ''].toFixed(2).concat('%')}
               </td>
             </tr>
           </tbody>

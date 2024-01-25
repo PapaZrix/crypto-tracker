@@ -24,9 +24,6 @@ export default function useGraphData() {
         },
         next: { revalidate: 600 },
       });
-
-      if (!res.ok) router.push('/404');
-
       const data = await res.json();
 
       const graphData = data.prices.map((price: Ticker) => {
@@ -47,7 +44,12 @@ export default function useGraphData() {
       setIsLoading(false);
       setGraphData(graphData);
     } catch (error) {
-      console.log(error);
+      if (error instanceof TypeError) {
+        // router.push('/error')
+        setGraphData(undefined)
+        setIsLoading(false)
+      }
+      console.log('THIS IS THE ERROR MESSAGE', error)
     }
   };
 

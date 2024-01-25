@@ -1,25 +1,36 @@
 'use client';
 
 import { TableCoin } from '@/types';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { filters } from '@/constants';
 import Loader from '@/components/layout/Loader';
 import TableItem from '@/components/popular/TableItem';
-import { getCoins } from '@/utils/getCoins';
 import { usePagination } from '@mantine/hooks';
 import Image from 'next/image';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import { useInView } from 'react-intersection-observer';
 
 const ITEMS_PER_PAGE = 25;
 
+const getCoins = async () => {
+  const url =
+    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=price_change_percentage&locale=en';
+  try {
+    const res = await fetch(url, { next: { revalidate: 1200 } });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return undefined;
+  }
+};
+
 export default function PopularTable() {
   const [coins, setCoins] = useState<TableCoin[] | null>([] || null);
-  const [visibleCoins, setVisibleCoins] = useState<TableCoin[] | null>(
-    [] || null
-  );
+  const [visibleCoins, setVisibleCoins] = useState<TableCoin[] | null>([] || null);
   const [activeFilter, setActiveFilter] = useState<any>(filters[2]);
   const [isOpen, setIsOpen] = useState(false);
+  const { ref: tableRef, inView, entry } = useInView({ threshold: 0 });
 
   const handleClickOutside = () => {
     setIsOpen(false);
@@ -75,6 +86,8 @@ export default function PopularTable() {
     changePage(1);
   };
 
+  if (coins === undefined) throw new Error('Too Many Requests');
+
   if (visibleCoins?.length === 0) {
     return (
       <div className='h-[calc(100vh_-_78px)] sm:h-[calc(100vh_-_83px)] bg-gray-50 dark:bg-gray-900'>
@@ -82,9 +95,9 @@ export default function PopularTable() {
       </div>
     );
   }
-  console.log(pagination.range);
+  console.log(inView);
   return (
-    <div className='flex p-5 flex-col w-full lg:w-10/12 2xl:w-9/12 mx-auto'>
+    <div id='container' className='flex sm:p-5 flex-col w-full 2xl:w-10/12 mx-auto'>
       <div className='my-4 relative w-44 ml-auto'>
         <div
           onClick={() => setIsOpen(!isOpen)}
@@ -101,7 +114,7 @@ export default function PopularTable() {
         </div>
         {isOpen && (
           <div ref={ref}>
-            <ul className='w-full absolute top-10 right-0 z-50  border bg-white rounded-md shadow-md'>
+            <ul className='w-full absolute top-10 right-0 z-50 border bg-white dark:bg-gray-700 dark:border-gray-500 rounded-md shadow-md'>
               {filters.map((filter) =>
                 filter.filter_name === activeFilter.filter_name ? (
                   <li
@@ -127,29 +140,25 @@ export default function PopularTable() {
           </div>
         )}
       </div>
-      <div className='w-full overflow-x-scroll sm:overflow-x-clip shadow-md rounded-xl border'>
+      <div className='w-full overflow-x-scroll sm:overflow-x-clip'>
         <table className='w-full relative text-sm sm:text-base'>
-          <thead className='sticky z-40 text-center'>
+          <thead ref={tableRef} className='w-full sticky top-0 z-40 text-center'>
             <tr>
-              <th className='text-left w-[20px] sticky left-0 top-0 sm:w-[20px] bg-gray-200 dark:bg-gray-700 z-20'>
+              <th className='text-left w-[20px] left-0 sm:w-[20px] bg-gray-200 dark:bg-gray-700 z-20'>
                 #
               </th>
-              <th className='text-start max-w-[100px] sticky left-[40px] top-0 bg-gray-200 dark:bg-gray-700 z-20'>
+              <th className='text-start max-w-[100px] left-[40px] bg-gray-200 dark:bg-gray-700 z-20'>
                 Name
               </th>
-              <th className='text-start sticky top-0 z-10 bg-gray-200 dark:bg-gray-700'>
-                Price
-              </th>
-              <th className='sticky top-0 z-10 bg-gray-200 dark:bg-gray-700'>
-                24h %
-              </th>
-              <th className='text-end sticky top-0 z-10 bg-gray-200 dark:bg-gray-700'>
+              <th className='text-start bg-gray-200 dark:bg-gray-700'>Price</th>
+              <th className='bg-gray-200 dark:bg-gray-700'>24h %</th>
+              <th className='text-end bg-gray-200 dark:bg-gray-700 whitespace-nowrap'>
                 Market Cap
               </th>
-              <th className='text-end sticky top-0 z-10 bg-gray-200 dark:bg-gray-700'>
+              <th className='text-end bg-gray-200 dark:bg-gray-700 whitespace-nowrap'>
                 Total Volume
               </th>
-              <th className='text-end sticky top-0 z-10 bg-gray-200 dark:bg-gray-700'>
+              <th className='text-end bg-gray-200 dark:bg-gray-700 whitespace-nowrap'>
                 Circulating Supply
               </th>
             </tr>
@@ -177,35 +186,21 @@ export default function PopularTable() {
       </div>
       <div className='mt-4 flex items-center justify-center gap-4'>
         <ul className='flex justify-center gap-4 items-center'>
-          <li
-            className='cursor-pointer'
-            onClick={() => changePage(pagination.active - 1)}
-          >
+          <li className='cursor-pointer' onClick={() => changePage(pagination.active - 1)}>
             <BsArrowLeft size='1.5rem' />
           </li>
           {pagination.range.map((r) =>
             pagination.active === r ? (
-              <li
-                onClick={() => changePage(r)}
-                className='cursor-pointer text-orange-500'
-                key={r}
-              >
+              <li onClick={() => changePage(r)} className='cursor-pointer text-orange-500' key={r}>
                 {r}
               </li>
             ) : (
-              <li
-                onClick={() => changePage(r as number)}
-                className='cursor-pointer'
-                key={r}
-              >
+              <li onClick={() => changePage(r as number)} className='cursor-pointer' key={r}>
                 {r}
               </li>
             )
           )}
-          <li
-            className='cursor-pointer'
-            onClick={() => changePage(pagination.active + 1)}
-          >
+          <li className='cursor-pointer' onClick={() => changePage(pagination.active + 1)}>
             <BsArrowRight size='1.5rem' />
           </li>
         </ul>

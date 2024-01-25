@@ -7,7 +7,7 @@ import { MouseEventHandler, useState } from 'react';
 
 type NavContentProps = {
   isOpen: boolean;
-  handleClick: MouseEventHandler<HTMLImageElement>;
+  handleClick: MouseEventHandler<HTMLElement>;
 };
 
 function NavContent({ isOpen, handleClick }: NavContentProps) {
@@ -20,12 +20,7 @@ function NavContent({ isOpen, handleClick }: NavContentProps) {
       >
         <div className='flex w-full justify-between'>
           <Link href='/' className='p-3 flex gap-2 items-center'>
-            <Image
-              src='/assets/images/logo.png'
-              alt='logo'
-              width={40}
-              height={30}
-            />
+            <Image src='/assets/images/logo.png' alt='logo' width={40} height={30} />
             <p className='font-semibold text-2xl font-poppins'>
               Crypto<span className='text-orange-500'>Tracker</span>
             </p>
@@ -44,6 +39,7 @@ function NavContent({ isOpen, handleClick }: NavContentProps) {
             <Link
               key={link.value}
               href={link.route}
+              onClick={handleClick}
               className='flex gap-2 items-center'
             >
               <Image
@@ -60,9 +56,7 @@ function NavContent({ isOpen, handleClick }: NavContentProps) {
       </div>
       <div
         id='blurOverlay'
-        className={`fixed inset-0 bg-black bg-opacity-25 z-30 ${
-          isOpen ? 'block' : 'hidden'
-        }`}
+        className={`fixed inset-0 bg-black bg-opacity-25 z-30 ${isOpen ? 'block' : 'hidden'}`}
       ></div>
     </>
   );

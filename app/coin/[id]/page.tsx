@@ -3,7 +3,7 @@
 import { currencies } from '@/constants';
 import TopInfo from '@/components/coin/coin-page/TopInfo';
 import { useState, useEffect } from 'react';
-import { CoinPageParams, Currency, GraphData } from '@/types';
+import { CoinPageParams, Currency } from '@/types';
 import Loader from '@/components/layout/Loader';
 import useGraphData from '@/hooks/useGraphData';
 import PriceGraph from '@/components/coin/coin-page/PriceGraph';
@@ -67,16 +67,16 @@ export default function CoinPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-
-  // RENDER ERROR SCREEN
-  if (coin.market_data.price_change_percentage_7d === 0) {
-    return (
-      <div>
-        <h1>FUCK YOU BROOOO</h1>
-        <Loader />
-      </div>
-    );
-  }
+  console.log(graphData)
+  // // RENDER ERROR SCREEN
+  // if (coin.market_data.price_change_percentage_7d === 0) {
+  //   return (
+  //     <div>
+  //       <h1>FUCK YOU BROOOO</h1>
+  //       <Loader />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className='mt-4 flex flex-col p-4 sm:p-5 w-full sm:w-9/12 mx-auto'>
@@ -85,14 +85,14 @@ export default function CoinPage({ params }: { params: { id: string } }) {
         selectedCurrency={selectedCurrency}
         handleClick={handleCurrencyChange}
       />
-      <div className='my-4 flex flex-col items-center h-64 sm:h-96'>
-        <PriceGraph
+      <div className='my-4 flex flex-col items-center justify-center h-64 sm:h-96'>
+        {graphData === undefined && isLoading === false ? <div>The API has no more requests left, please try again in a minute or so</div> : <PriceGraph
           graphData={graphData}
           graphRange={graphRange}
           handleGraphRange={handleGraphRange}
           selectedCurrency={selectedCurrency}
           isLoading={isLoading}
-        />
+        />}
       </div>
       <hr className='mt-4 border-black dark:border-orange-500' />
       <div>
