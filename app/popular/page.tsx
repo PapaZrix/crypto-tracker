@@ -97,9 +97,9 @@ export default function PopularTable() {
   return (
     <div
       id='container'
-      className='h-screen sm:min-h-[200vh] flex sm:p-5 flex-col w-full 2xl:w-10/12 mx-auto'
+      className='h-screen sm:h-auto flex sm:p-5 flex-col w-full 2xl:w-10/12 mx-auto'
     >
-      <div className='my-4 relative w-44 ml-auto mr-4'>
+      <div className='my-4 relative w-44 ml-auto mr-4 sm:mr-0'>
         <div
           onClick={() => setIsOpen(!isOpen)}
           className='bg-white dark:bg-gray-700 px-3 py-1 flex gap-4 items-center justify-between border dark:border-gray-800 w-full shadow-md cursor-pointer rounded-md'
@@ -141,7 +141,7 @@ export default function PopularTable() {
           </div>
         )}
       </div>
-      <div className='w-full overflow-scroll sm:overflow-clip'>
+      <div className='w-full overflow-x-scroll sm:overflow-x-clip'>
         <table className='w-full relative text-sm sm:text-base'>
           <thead className='w-full sticky -top-2 z-30 text-center'>
             <tr>
@@ -153,15 +153,9 @@ export default function PopularTable() {
               </th>
               <th className='text-start bg-gray-200 dark:bg-gray-700'>Price</th>
               <th className='bg-gray-200 dark:bg-gray-700'>24h %</th>
-              <th className='text-end bg-gray-200 dark:bg-gray-700 whitespace-nowrap'>
-                Market Cap
-              </th>
-              <th className='text-end bg-gray-200 dark:bg-gray-700 whitespace-nowrap'>
-                Total Volume
-              </th>
-              <th className='text-end bg-gray-200 dark:bg-gray-700 whitespace-nowrap'>
-                Circulating Supply
-              </th>
+              <th className='text-end bg-gray-200 dark:bg-gray-700'>Market Cap</th>
+              <th className='text-end bg-gray-200 dark:bg-gray-700'>Total Volume</th>
+              <th className='text-end bg-gray-200 dark:bg-gray-700'>Circulating Supply</th>
             </tr>
           </thead>
           <tbody className='divide-y divide-gray-200 dark:divide-gray-600'>

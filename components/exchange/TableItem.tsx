@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function TableItem(exchange: Exchange) {
   return (
-    <tr className='w-full my-10 hover:bg-gray-200 dark:hover-bg-gray-700 cursor-pointer'>
+    <tr className='w-full my-10 hover:bg-gray-200 hover:dark:bg-gray-700 cursor-pointer'>
       <td className='text-start w-[40px] sticky left-0 sm:w-auto sm:static bg-gray-50 dark:bg-gray-900 sm:bg-transparent sm:dark:bg-transparent z-10'>
         {exchange.trust_score_rank}
       </td>
