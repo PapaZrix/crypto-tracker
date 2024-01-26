@@ -9,7 +9,6 @@ import { usePagination } from '@mantine/hooks';
 import Image from 'next/image';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
-import { useInView } from 'react-intersection-observer';
 
 const ITEMS_PER_PAGE = 25;
 
@@ -30,7 +29,6 @@ export default function PopularTable() {
   const [visibleCoins, setVisibleCoins] = useState<TableCoin[] | null>([] || null);
   const [activeFilter, setActiveFilter] = useState<any>(filters[2]);
   const [isOpen, setIsOpen] = useState(false);
-  const { ref: tableRef, inView, entry } = useInView({ threshold: 0 });
 
   const handleClickOutside = () => {
     setIsOpen(false);
@@ -95,10 +93,13 @@ export default function PopularTable() {
       </div>
     );
   }
-  console.log(inView);
+
   return (
-    <div id='container' className='flex sm:p-5 flex-col w-full 2xl:w-10/12 mx-auto'>
-      <div className='my-4 relative w-44 ml-auto'>
+    <div
+      id='container'
+      className='h-screen sm:min-h-[200vh] flex sm:p-5 flex-col w-full 2xl:w-10/12 mx-auto'
+    >
+      <div className='my-4 relative w-44 ml-auto mr-4'>
         <div
           onClick={() => setIsOpen(!isOpen)}
           className='bg-white dark:bg-gray-700 px-3 py-1 flex gap-4 items-center justify-between border dark:border-gray-800 w-full shadow-md cursor-pointer rounded-md'
@@ -140,9 +141,9 @@ export default function PopularTable() {
           </div>
         )}
       </div>
-      <div className='w-full overflow-x-scroll sm:overflow-x-clip'>
+      <div className='w-full overflow-scroll sm:overflow-clip'>
         <table className='w-full relative text-sm sm:text-base'>
-          <thead ref={tableRef} className='w-full sticky top-0 z-40 text-center'>
+          <thead className='w-full sticky -top-2 z-30 text-center'>
             <tr>
               <th className='text-left w-[20px] left-0 sm:w-[20px] bg-gray-200 dark:bg-gray-700 z-20'>
                 #
@@ -184,7 +185,7 @@ export default function PopularTable() {
           </tbody>
         </table>
       </div>
-      <div className='mt-4 flex items-center justify-center gap-4'>
+      <div className='my-4 flex items-center justify-center gap-4'>
         <ul className='flex justify-center gap-4 items-center'>
           <li className='cursor-pointer' onClick={() => changePage(pagination.active - 1)}>
             <BsArrowLeft size='1.5rem' />

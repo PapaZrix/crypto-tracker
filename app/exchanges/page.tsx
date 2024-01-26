@@ -14,10 +14,10 @@ export default async function Exchanges() {
   const exchanges: Exchange[] = await getExchanges();
 
   return (
-    <div className='flex mt-8 sm:p-5 flex-col w-full 2xl:w-10/12 mx-auto'>
-      <div className='w-full overflow-x-scroll sm:overflow-x-clip relative'>
+    <div className='h-screen sm:min-h-[200vh] flex mt-8 sm:p-5 flex-col w-full 2xl:w-10/12 mx-auto'>
+      <div className='w-full overflow-scroll sm:overflow-clip relative'>
         <table className='w-full relative text-sm sm:text-[16px]'>
-          <thead className='w-full sticky top-0 z-40 text-center'>
+          <thead className='w-full sticky top-0 z-30 text-center'>
             <tr>
               <th className='w-[20px] left-0 sm:w-[20px] text-start z-20 bg-gray-200 dark:bg-gray-700'>
                 #

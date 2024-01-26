@@ -23,15 +23,10 @@ const Header = async () => {
   const coins = await getAllCoins();
 
   return (
-    <header className='sticky md:relative top-0 z-50 shadow-sm bg-white dark:bg-gray-900 border-b-[1px] dark:border-orange-500'>
+    <header className='sticky md:relative top-0 z-40 shadow-sm bg-white dark:bg-gray-900 border-b-[1px] dark:border-orange-500'>
       <nav className='px-4 py-2 sm:p-5 sm:w-10/12 mx-auto flex justify-between items-center relative'>
         <Link href='/' className='flex gap-2 items-center'>
-          <Image
-            src='/assets/images/logo.png'
-            alt='logo'
-            width={40}
-            height={30}
-          />
+          <Image src='/assets/images/logo.png' alt='logo' width={40} height={30} />
           <p className='sm:block font-semibold text-2xl sm:text-4xl font-poppins'>
             Crypto<span className='text-orange-500'>Tracker</span>
           </p>
