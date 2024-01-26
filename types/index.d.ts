@@ -68,8 +68,11 @@ export type CoinPageParams = {
     price_change_24h_in_currency: { [key: string]: number };
     price_change_percentage_7d: number;
     price_change_percentage_7d_in_currency: { [key: string]: number };
+    price_change_percentage_14d: number;
     price_change_percentage_14d_in_currency: { [key: string]: number };
+    price_change_percentage_30d: number;
     price_change_percentage_30d_in_currency: { [key: string]: number };
+    price_change_percentage_60d: number;
     price_change_percentage_60d_in_currency: { [key: string]: number };
     price_change_percentage_24h_in_currency: { [key: string]: number };
     circulating_supply: number;

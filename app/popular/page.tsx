@@ -142,7 +142,7 @@ export default function PopularTable() {
         )}
       </div>
       <div className='w-full overflow-x-scroll sm:overflow-x-clip'>
-        <table className='w-full relative text-sm sm:text-base'>
+        <table id='popular' className='w-full relative text-sm sm:text-base'>
           <thead className='w-full sticky -top-2 z-30 text-center'>
             <tr>
               <th className='text-left w-[20px] left-0 sm:w-[20px] bg-gray-200 dark:bg-gray-700 z-20'>

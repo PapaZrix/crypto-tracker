@@ -1,19 +1,13 @@
 'use client';
 
 import { Currency, GraphData, Ticker } from '@/types';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export default function useGraphData() {
-  const router = useRouter();
   const [graphData, setGraphData] = useState<GraphData>();
   const [isLoading, setIsLoading] = useState(false);
 
-  const getGraphData = async (
-    id: string,
-    currency: Currency,
-    range: number
-  ) => {
+  const getGraphData = async (id: string, currency: Currency, range: number) => {
     const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${range}`;
     setIsLoading(true);
     try {
@@ -45,11 +39,9 @@ export default function useGraphData() {
       setGraphData(graphData);
     } catch (error) {
       if (error instanceof TypeError) {
-        // router.push('/error')
-        setGraphData(undefined)
-        setIsLoading(false)
+        setGraphData(undefined);
+        setIsLoading(false);
       }
-      console.log('THIS IS THE ERROR MESSAGE', error)
     }
   };
 

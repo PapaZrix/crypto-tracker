@@ -11,33 +11,37 @@ import HistoryTable from '@/components/coin/coin-page/HistoryTable';
 import millify from 'millify';
 import PriceInfo from '@/components/coin/coin-page/PriceInfo';
 import MarketInfo from '@/components/coin/coin-page/MarketInfo';
+import { useRouter } from 'next/navigation';
 
 export default function CoinPage({ params }: { params: { id: string } }) {
+  const router = useRouter();
   const { isLoading, graphData, getGraphData } = useGraphData();
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
-    currencies[0]
-  );
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
   const [coin, setCoin] = useState<CoinPageParams | null>(null);
   const [graphRange, setGraphRange] = useState(30);
+  const { id } = params;
   const movement =
-    Number(
-      coin?.market_data.price_change_percentage_24h_in_currency[
-        selectedCurrency.name ?? ''
-      ]
-    ) > 0
+    Number(coin?.market_data.price_change_percentage_24h_in_currency[selectedCurrency.name ?? '']) >
+    0
       ? 'up'
       : 'down';
 
   useEffect(() => {
     const getCoin = async (id: string) => {
-      const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`, {
-        next: { revalidate: 600 },
-      });
-      const coin = await res.json();
-      setCoin(coin);
+      try {
+        const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`, {
+          next: { revalidate: 600 },
+        });
+        if (!res.ok) return router.push('/404');
+        const coin = await res.json();
+        setCoin(coin);
+      } catch (error) {
+        // if (error instanceof TypeError) setIsFailed(true);
+        console.log('JEBENI CRASH BOKTE JEBO');
+      }
     };
 
-    getCoin(params.id);
+    getCoin(id);
   }, []);
 
   useEffect(() => {
@@ -45,9 +49,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
     getGraphData(params.id, selectedCurrency.name, graphRange);
   }, [selectedCurrency, graphRange]);
 
-  const handleCurrencyChange = (
-    event: React.MouseEvent<HTMLLIElement>
-  ): void => {
+  const handleCurrencyChange = (event: React.MouseEvent<HTMLLIElement>): void => {
     const currency = event.currentTarget.textContent;
     setSelectedCurrency({
       ...selectedCurrency,
@@ -67,46 +69,32 @@ export default function CoinPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-  console.log(graphData)
-  // // RENDER ERROR SCREEN
-  // if (coin.market_data.price_change_percentage_7d === 0) {
-  //   return (
-  //     <div>
-  //       <h1>FUCK YOU BROOOO</h1>
-  //       <Loader />
-  //     </div>
-  //   );
-  // }
+
+  // if (failed) throw new Error('JEBEMTI BOGA');
+  console.log('COIN', coin, 'GRAPH DATA', graphData);
 
   return (
     <div className='mt-4 flex flex-col p-4 sm:p-5 w-full sm:w-9/12 mx-auto'>
-      <TopInfo
-        coin={coin}
-        selectedCurrency={selectedCurrency}
-        handleClick={handleCurrencyChange}
-      />
+      <TopInfo coin={coin} selectedCurrency={selectedCurrency} handleClick={handleCurrencyChange} />
       <div className='my-4 flex flex-col items-center justify-center h-64 sm:h-96'>
-        {graphData === undefined && isLoading === false ? <div>The API has no more requests left, please try again in a minute or so</div> : <PriceGraph
+        <PriceGraph
           graphData={graphData}
           graphRange={graphRange}
           handleGraphRange={handleGraphRange}
           selectedCurrency={selectedCurrency}
           isLoading={isLoading}
-        />}
+        />
       </div>
       <hr className='mt-4 border-black dark:border-orange-500' />
       <div>
-        <h2 className='text-3xl mt-4'>
-          {coin.symbol.toUpperCase()} Price Live Data
-        </h2>
+        <h2 className='text-3xl mt-4'>{coin.symbol.toUpperCase()} Price Live Data</h2>
         <p className='mt-4 dark:text-[#B7BDC6]'>
-          {coin.name} price is updated every 5 minutes due to API restrictions.
-          The live price of {coin.name} is{' '}
+          {coin.name} price is updated every 5 minutes due to API restrictions. The live price of{' '}
+          {coin.name} is{' '}
           <span className='font-semibold'>
             {selectedCurrency.symbol}
             {coin.market_data.current_price[selectedCurrency.name ?? '']} (
-            {coin.symbol.toUpperCase()} / {selectedCurrency.name?.toUpperCase()}
-            )
+            {coin.symbol.toUpperCase()} / {selectedCurrency.name?.toUpperCase()})
           </span>{' '}
           with a current market cap of{' '}
           <span className='font-semibold'>
@@ -118,8 +106,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
           {coin.name} is {movement}
           <span
             className={`${
-              Number(coin.market_data.price_change_percentage_24h_in_currency) <
-              0
+              Number(coin.market_data.price_change_percentage_24h_in_currency) < 0
                 ? 'text-red-500'
                 : 'text-emerald-600'
             }`}
@@ -131,9 +118,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
             %
           </span>{' '}
           in the last 24 hours with a circulating supply of{' '}
-          <span className='font-semibold'>
-            {millify(coin.market_data.circulating_supply)}
-          </span>
+          <span className='font-semibold'>{millify(coin.market_data.circulating_supply)}</span>
         </p>
       </div>
       <HistoryTable coin={coin} selectedCurrency={selectedCurrency} />

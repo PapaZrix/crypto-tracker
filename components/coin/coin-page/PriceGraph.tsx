@@ -13,6 +13,7 @@ import CustomTooltip from './CustomTooltip';
 import Loader from '@/components/layout/Loader';
 import useWindowSize from '@/hooks/useWindowSize';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
 
 type PriceGraphProps = {
   graphData: GraphData | undefined;
@@ -58,7 +59,19 @@ export default function PriceGraph({
           )
         )}
       </div>
-      {isLoading ? (
+      {graphData === undefined && isLoading === false ? (
+        <div className='h-56 sm:h-[22.5rem] flex flex-col gap-4 items-center justify-center'>
+          <Image
+            src='/assets/images/sad-kry.png'
+            alt='error'
+            width={width < 640 ? 100 : 200}
+            height={width < 640 ? 100 : 200}
+          />
+          <p className='text-lg max-w-[300px] sm:max-w-max mx-auto sm:text-xl'>
+            The API has no more requests left, please try again in a minute or so
+          </p>
+        </div>
+      ) : isLoading ? (
         <Loader />
       ) : (
         <div className='flex h-full w-full mt-0 sm:mt-4'>

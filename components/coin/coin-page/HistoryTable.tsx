@@ -1,5 +1,6 @@
 import type { CoinPageParams, Currency } from '@/types';
 import { checkPercentSign, checkPriceSign } from '@/utils/checkSign';
+import InfoTooltip from './InfoTooltip';
 
 type HistoryTableProps = {
   coin: CoinPageParams;
@@ -7,28 +8,25 @@ type HistoryTableProps = {
 };
 
 function getPriceChange(price: any, percentage: any): any {
-  if (percentage === undefined) return 0
+  console.log(price, percentage);
+  if (percentage === undefined) return 'N/A';
   let priceChange = 0;
   if (percentage < 0) {
     priceChange = price * (percentage / 100);
-    return priceChange.toFixed(3);
+    return priceChange.toFixed(4);
   } else {
     let multiplier: number = percentage / 100;
-    return (price * (1 + multiplier) - price).toFixed(2);
+    return (price * (1 + multiplier) - price).toFixed(4);
   }
 }
 
-export default function HistoryTable({
-  coin,
-  selectedCurrency,
-}: HistoryTableProps) {
+export default function HistoryTable({ coin, selectedCurrency }: HistoryTableProps) {
   return (
     <div className='mt-6 w-full'>
       <h3 className='text-xl bold'>
-        {coin.symbol.toUpperCase()} Price History{' '}
-        {selectedCurrency.name?.toUpperCase()}
+        {coin.symbol.toUpperCase()} Price History {selectedCurrency.name?.toUpperCase()}
       </h3>
-      <div className='relative overflow-x-auto'>
+      <div className='relative overflow-visible'>
         <table className='mt-2 w-full table-auto'>
           <thead className='text-xs sm:text-base'>
             <tr className='bg-gray-200 dark:bg-gray-800'>
@@ -91,7 +89,7 @@ export default function HistoryTable({
                   )
                 )}`}
               >
-                {selectedCurrency.symbol}{' '}
+                {coin.market_data.price_change_percentage_7d === 0 ? '' : selectedCurrency.symbol}
                 {getPriceChange(
                   coin.market_data.current_price[selectedCurrency.name ?? ''],
                   coin.market_data.price_change_percentage_7d_in_currency[
@@ -106,9 +104,13 @@ export default function HistoryTable({
                   ]
                 )}`}
               >
-                {coin.market_data.price_change_percentage_7d_in_currency[
-                  selectedCurrency.name ?? ''
-                ] === undefined ? 'N/A' : coin.market_data.price_change_percentage_7d_in_currency[selectedCurrency.name ?? ''].toFixed(2).concat('%')}
+                {coin.market_data.price_change_percentage_7d === 0
+                  ? 'N/A'
+                  : coin.market_data.price_change_percentage_7d_in_currency[
+                      selectedCurrency.name ?? ''
+                    ]
+                      .toFixed(2)
+                      .concat('%')}
               </td>
             </tr>
             {/* 3rd Row */}
@@ -124,13 +126,15 @@ export default function HistoryTable({
                   )
                 )}`}
               >
-                {selectedCurrency.symbol}{' '}
-                {getPriceChange(
-                  coin.market_data.current_price[selectedCurrency.name ?? ''],
-                  coin.market_data.price_change_percentage_30d_in_currency[
-                    selectedCurrency.name ?? ''
-                  ]
-                )}
+                {coin.market_data.price_change_percentage_30d === 0 ? '' : selectedCurrency.symbol}
+                <InfoTooltip
+                  value={getPriceChange(
+                    coin.market_data.current_price[selectedCurrency.name ?? ''],
+                    coin.market_data.price_change_percentage_30d_in_currency[
+                      selectedCurrency.name ?? ''
+                    ]
+                  )}
+                />
               </td>
               <td
                 className={`text-end pr-4 ${checkPercentSign(
@@ -139,7 +143,17 @@ export default function HistoryTable({
                   ]
                 )}`}
               >
-                {coin.market_data.price_change_percentage_30d_in_currency[selectedCurrency.name ?? ''] === undefined ? 'N/A' : coin.market_data.price_change_percentage_30d_in_currency[selectedCurrency.name ?? ''].toFixed(2).concat('%')}
+                <InfoTooltip
+                  value={
+                    coin.market_data.price_change_percentage_30d === 0
+                      ? 'N/A'
+                      : coin.market_data.price_change_percentage_7d_in_currency[
+                          selectedCurrency.name ?? ''
+                        ]
+                          .toFixed(2)
+                          .concat('%')
+                  }
+                />
               </td>
             </tr>
             {/* 4th Row */}
@@ -155,13 +169,15 @@ export default function HistoryTable({
                   )
                 )}`}
               >
-                {selectedCurrency.symbol}{' '}
-                {getPriceChange(
-                  coin.market_data.current_price[selectedCurrency.name ?? ''],
-                  coin.market_data.price_change_percentage_60d_in_currency[
-                    selectedCurrency.name ?? ''
-                  ]
-                )}
+                {coin.market_data.price_change_percentage_30d === 0 ? '' : selectedCurrency.symbol}{' '}
+                <InfoTooltip
+                  value={getPriceChange(
+                    coin.market_data.current_price[selectedCurrency.name ?? ''],
+                    coin.market_data.price_change_percentage_60d_in_currency[
+                      selectedCurrency.name ?? ''
+                    ]
+                  )}
+                />
               </td>
               <td
                 className={`text-end pr-4 ${checkPercentSign(
@@ -170,7 +186,17 @@ export default function HistoryTable({
                   ]
                 )}`}
               >
-                {coin.market_data.price_change_percentage_60d_in_currency[selectedCurrency.name ?? ''] === undefined ? 'N/A' : coin.market_data.price_change_percentage_60d_in_currency[selectedCurrency.name ?? ''].toFixed(2).concat('%')}
+                <InfoTooltip
+                  value={
+                    coin.market_data.price_change_percentage_60d === 0
+                      ? 'N/A'
+                      : coin.market_data.price_change_percentage_60d_in_currency[
+                          selectedCurrency.name ?? ''
+                        ]
+                          .toFixed(2)
+                          .concat('%')
+                  }
+                />
               </td>
             </tr>
           </tbody>
