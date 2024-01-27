@@ -14,6 +14,7 @@ import Loader from '@/components/layout/Loader';
 import useWindowSize from '@/hooks/useWindowSize';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
+import { IoMdInformationCircleOutline } from 'react-icons/io';
 
 type PriceGraphProps = {
   graphData: GraphData | undefined;
@@ -37,25 +38,53 @@ export default function PriceGraph({
   return (
     <>
       <div className='w-full sm:w-auto text-sm sm:text-base flex gap-4 sm:gap-6 text-gray-400 dark:text-gray-500 cursor-pointer'>
-        {graphRanges.map((range) =>
-          range.days === graphRange ? (
-            <button
-              value={range.days}
-              key={range.days}
-              className='text-orange-500'
-              onClick={handleGraphRange}
-            >
-              {range.symbol}
-            </button>
-          ) : (
-            <button
-              value={range.days}
-              key={range.days}
-              className='hover:text-orange-500'
-              onClick={handleGraphRange}
-            >
-              {range.symbol}
-            </button>
+        {graphRange === 1 ? (
+          <div className='mt-4 flex justify-center gap-1 items-center relative'>
+            <p className='text-lg underline text-black dark:text-gray-300 font-semibold'>
+              Data for this coin is available only for the last 24 hours
+            </p>
+            <div className='group relative flex justify-center'>
+              <button>
+                <IoMdInformationCircleOutline
+                  size='1.5rem'
+                  className='text-gray-700 dark:text-white cursor-pointer'
+                />
+              </button>
+              <div className='invisible absolute -left-10 bottom-5 sm:-left-[0.35rem] sm:bottom-6 group-hover:visible'>
+                <div className='w-24 bg-gray-200 text-black dark:bg-gray-800 rounded px-3 py-2 text-center dark:text-white sm:w-56'>
+                  Some coins do not have all the necessary market data information from the API
+                </div>
+                <div
+                  style={{
+                    borderColor: '#5E6673 transparent transparent transparent',
+                    borderWidth: '6px 8px 0 8px',
+                  }}
+                  className='border-solid w-2 mx-[10px]'
+                ></div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          graphRanges.map((range) =>
+            range.days === graphRange ? (
+              <button
+                value={range.days}
+                key={range.days}
+                className='text-orange-500'
+                onClick={handleGraphRange}
+              >
+                {range.symbol}
+              </button>
+            ) : (
+              <button
+                value={range.days}
+                key={range.days}
+                className='text-gray-600 dark:text-gray-400 hover:text-orange-500'
+                onClick={handleGraphRange}
+              >
+                {range.symbol}
+              </button>
+            )
           )
         )}
       </div>
@@ -66,6 +95,7 @@ export default function PriceGraph({
             alt='error'
             width={width < 640 ? 100 : 200}
             height={width < 640 ? 100 : 200}
+            className='rounded-full'
           />
           <p className='text-lg max-w-[300px] sm:max-w-max mx-auto sm:text-xl'>
             The API has no more requests left, please try again in a minute or so

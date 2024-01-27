@@ -90,12 +90,14 @@ export default function HistoryTable({ coin, selectedCurrency }: HistoryTablePro
                 )}`}
               >
                 {coin.market_data.price_change_percentage_7d === 0 ? '' : selectedCurrency.symbol}
-                {getPriceChange(
-                  coin.market_data.current_price[selectedCurrency.name ?? ''],
-                  coin.market_data.price_change_percentage_7d_in_currency[
-                    selectedCurrency.name ?? ''
-                  ]
-                )}
+                <InfoTooltip
+                  value={getPriceChange(
+                    coin.market_data.current_price[selectedCurrency.name ?? ''],
+                    coin.market_data.price_change_percentage_7d_in_currency[
+                      selectedCurrency.name ?? ''
+                    ]
+                  )}
+                />
               </td>
               <td
                 className={`text-end pr-4 ${checkPercentSign(
@@ -104,13 +106,17 @@ export default function HistoryTable({ coin, selectedCurrency }: HistoryTablePro
                   ]
                 )}`}
               >
-                {coin.market_data.price_change_percentage_7d === 0
-                  ? 'N/A'
-                  : coin.market_data.price_change_percentage_7d_in_currency[
-                      selectedCurrency.name ?? ''
-                    ]
-                      .toFixed(2)
-                      .concat('%')}
+                <InfoTooltip
+                  value={
+                    coin.market_data.price_change_percentage_7d === 0
+                      ? 'N/A'
+                      : coin.market_data.price_change_percentage_7d_in_currency[
+                          selectedCurrency.name ?? ''
+                        ]
+                          .toFixed(2)
+                          .concat('%')
+                  }
+                />
               </td>
             </tr>
             {/* 3rd Row */}

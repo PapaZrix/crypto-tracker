@@ -30,7 +30,7 @@ export default function useGraphData() {
 
         return {
           Date: date,
-          Price: Number(p.toFixed(2)),
+          Price: Number(p.toFixed(4)),
           Time: new Date(timestamp).toLocaleTimeString(),
         };
       });

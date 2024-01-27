@@ -17,7 +17,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const { isLoading, graphData, getGraphData } = useGraphData();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
-  const [coin, setCoin] = useState<CoinPageParams | null>(null);
+  const [coin, setCoin] = useState<CoinPageParams | null | undefined>(null);
   const [graphRange, setGraphRange] = useState(30);
   const { id } = params;
   const movement =
@@ -36,8 +36,9 @@ export default function CoinPage({ params }: { params: { id: string } }) {
         const coin = await res.json();
         setCoin(coin);
       } catch (error) {
-        // if (error instanceof TypeError) setIsFailed(true);
-        console.log('JEBENI CRASH BOKTE JEBO');
+        if (error instanceof TypeError) {
+          setCoin(undefined);
+        }
       }
     };
 
@@ -45,8 +46,17 @@ export default function CoinPage({ params }: { params: { id: string } }) {
   }, []);
 
   useEffect(() => {
-    // @ts-ignore
-    getGraphData(params.id, selectedCurrency.name, graphRange);
+    if (
+      coin?.market_data.price_change_percentage_7d === 0 ||
+      coin?.market_data.price_change_percentage_30d === 0
+    ) {
+      setGraphRange(1);
+      // @ts-ignore
+      getGraphData(id, selectedCurrency.name, 1);
+    } else {
+      // @ts-ignore
+      getGraphData(id, selectedCurrency.name, graphRange);
+    }
   }, [selectedCurrency, graphRange]);
 
   const handleCurrencyChange = (event: React.MouseEvent<HTMLLIElement>): void => {
@@ -62,6 +72,8 @@ export default function CoinPage({ params }: { params: { id: string } }) {
     setGraphRange(Number(event.currentTarget.value));
   };
 
+  if (coin === undefined) throw new Error('smh');
+
   if (!coin) {
     return (
       <div className='h-[calc(100vh_-_78px)] sm:h-[calc(100vh_-_83px)] bg-gray-50 dark:bg-gray-900'>
@@ -69,9 +81,6 @@ export default function CoinPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-
-  // if (failed) throw new Error('JEBEMTI BOGA');
-  console.log('COIN', coin, 'GRAPH DATA', graphData);
 
   return (
     <div className='mt-4 flex flex-col p-4 sm:p-5 w-full sm:w-9/12 mx-auto'>
