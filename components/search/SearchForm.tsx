@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import type { SearchCoin as Coin } from '@/types';
 
-function SearchForm({ coins }: { coins: Coin[] }) {
+export default function SearchForm({ coins }: { coins: Coin[] }) {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,7 +26,7 @@ function SearchForm({ coins }: { coins: Coin[] }) {
     <>
       <div className='flex gap-2 items-center font-normal'>
         <div
-          className='hidden sm:flex bg-white sm:bg-gray-100 gap-2 items-center w-full sm:w-52 border sm:p-2 text-black rounded-xl dark:bg-gray-700 dark:border-gray-500 dark:text-gray-400 cursor-pointer'
+          className='hidden sm:flex bg-white sm:bg-gray-100 gap-2 items-center w-full sm:w-52 border h-10 sm:p-2 text-black rounded-xl dark:bg-gray-700 dark:border-gray-500 dark:text-gray-400 cursor-pointer shadow-md dark:shadow-sm dark:shadow-orange-500'
           onClick={() => {
             setIsOpen(true);
           }}
@@ -79,7 +79,13 @@ function SearchForm({ coins }: { coins: Coin[] }) {
                 >
                   <div className='flex items-center gap-2 justify-between sm:justify-normal w-full'>
                     <div className='flex items-center gap-2'>
-                      <Image src={coin.image} alt={coin.name} width={30} height={20} />
+                      <Image
+                        className='rounded-full'
+                        src={coin.image}
+                        alt={coin.name}
+                        width={30}
+                        height={20}
+                      />
                       <p className='font-bold'>{coin.name}</p>
                       <p className='text-gray-400'>{coin.symbol.toUpperCase()}</p>
                     </div>
@@ -107,5 +113,3 @@ function SearchForm({ coins }: { coins: Coin[] }) {
     </>
   );
 }
-
-export default SearchForm;

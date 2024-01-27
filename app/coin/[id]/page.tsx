@@ -83,7 +83,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className='mt-4 flex flex-col p-4 sm:p-5 w-full sm:w-9/12 mx-auto'>
+    <div className='mt-4 flex flex-col p-4 sm:p-5 w-full lg:w-11/12 xl:w-10/12 2xl:w-9/12 mx-auto'>
       <TopInfo coin={coin} selectedCurrency={selectedCurrency} handleClick={handleCurrencyChange} />
       <div className='my-4 flex flex-col items-center justify-center h-64 sm:h-96'>
         <PriceGraph

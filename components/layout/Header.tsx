@@ -9,7 +9,7 @@ import { sidebarLinks } from '@/constants';
 async function getAllCoins() {
   const res = await fetch(
     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&locale=en',
-    { next: { revalidate: 600 } }
+    { next: { revalidate: 2400 } }
   );
 
   if (!res.ok) throw new Error('Failed to fetch data');
@@ -24,7 +24,7 @@ const Header = async () => {
 
   return (
     <header className='sticky md:relative top-0 z-40 shadow-sm bg-white dark:bg-gray-900 border-b-[1px] dark:border-orange-500'>
-      <nav className='px-4 py-2 sm:p-5 xl:w-full 2xl:w-10/12 mx-auto flex justify-between items-center relative'>
+      <nav className='px-4 py-2 sm:p-5 lg:w-full xl:w-11/12 2xl:w-10/12 mx-auto flex justify-between items-center relative'>
         <Link href='/' className='flex gap-2 items-center'>
           <Image src='/assets/images/logo.png' alt='logo' width={40} height={30} />
           <p className='sm:block font-semibold text-2xl sm:text-4xl font-poppins'>

@@ -15,7 +15,7 @@ export default function Error({
       <p className='text-lg'>The API has a per minute request restriction</p>
       <p>(5-10 requests per minute)</p>
       <div className='flex gap-4 mt-4'>
-        <button className='p-2 border text-green-500' onClick={() => reset()}>
+        <button className='p-2 border text-green-600' onClick={() => reset()}>
           Try again
         </button>
         <Link className='p-2 border' href='/'>
