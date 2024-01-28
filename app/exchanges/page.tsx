@@ -19,10 +19,10 @@ export default async function Exchanges() {
         <table id='exchanges' className='w-full relative text-sm sm:text-[16px]'>
           <thead className='w-full sticky top-0 z-30 text-center'>
             <tr>
-              <th className='w-[20px] left-0 sm:w-[20px] text-start z-20 bg-gray-200 dark:bg-gray-700'>
+              <th className='w-[20px] sticky left-0 sm:w-[20px] text-start z-20 bg-gray-200 dark:bg-gray-700'>
                 #
               </th>
-              <th className='text-start max-w-[100px] left-[40px] z-20 bg-gray-200 dark:bg-gray-700'>
+              <th className='text-start sticky max-w-[100px] left-[40px] z-20 bg-gray-200 dark:bg-gray-700'>
                 Name
               </th>
               <th className='text-center whitespace-nowrap bg-gray-200 dark:bg-gray-700'>

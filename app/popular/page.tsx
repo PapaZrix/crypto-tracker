@@ -145,10 +145,10 @@ export default function PopularTable() {
         <table id='popular' className='w-full relative text-sm sm:text-base'>
           <thead className='w-full sticky -top-2 z-30 text-center'>
             <tr>
-              <th className='text-left w-[20px] left-0 sm:w-[20px] bg-gray-200 dark:bg-gray-700 z-20'>
+              <th className='text-left sticky w-[20px] left-0 sm:w-[20px] bg-gray-200 dark:bg-gray-700 z-20'>
                 #
               </th>
-              <th className='text-start max-w-[100px] left-[40px] bg-gray-200 dark:bg-gray-700 z-20'>
+              <th className='text-start sticky max-w-[100px] left-[40px] bg-gray-200 dark:bg-gray-700 z-20'>
                 Name
               </th>
               <th className='text-start bg-gray-200 dark:bg-gray-700'>Price</th>

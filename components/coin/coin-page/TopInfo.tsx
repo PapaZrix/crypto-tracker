@@ -8,11 +8,7 @@ type TopInfoProps = {
   handleClick: (event: React.MouseEvent<HTMLLIElement>) => void;
 };
 
-export default function TopInfo({
-  coin,
-  selectedCurrency,
-  handleClick,
-}: TopInfoProps) {
+export default function TopInfo({ coin, selectedCurrency, handleClick }: TopInfoProps) {
   return (
     <>
       <div className='flex flex-col sm:flex-row items-center justify-between'>
@@ -26,25 +22,19 @@ export default function TopInfo({
           />
           <div className='p-2 flex gap-2 items-center'>
             <p className='text-3xl'>{coin?.name}</p>
-            <p className='text-gray-400 text-xl'>
-              ({coin?.symbol.toUpperCase()})
-            </p>
+            <p className='text-gray-400 text-xl'>({coin?.symbol.toUpperCase()})</p>
           </div>
         </div>
         <div className='flex gap-4 items-center mt-4 sm:mt-0 w-full sm:w-auto'>
           <p className='text-gray-400 hidden sm:block'>Currency</p>
-          <Dropdown
-            selectedCurrency={selectedCurrency}
-            handleClick={handleClick}
-          />
+          <Dropdown selectedCurrency={selectedCurrency} handleClick={handleClick} />
         </div>
       </div>
       <div className='mt-6 mb-2 sm:mb-0 sm:mt-4 flex items-center gap-2 sm:gap-4'>
         <div className='flex items-center sm:gap-2'>
           <p className='text-2xl hidden sm:block'>Current Price: </p>
           <div className='text-2xl'>
-            {selectedCurrency.symbol}{' '}
-            {coin?.market_data.current_price[selectedCurrency.name ?? '']}
+            {selectedCurrency.symbol} {coin?.market_data.current_price[selectedCurrency.name ?? '']}
           </div>
         </div>
         <div className='flex items-center gap-2'>
@@ -62,7 +52,7 @@ export default function TopInfo({
             </>
           ) : (
             <>
-              <p className='text-emerald-600 text-2xl'>
+              <p className='text-green-500 text-2xl'>
                 {coin?.market_data.price_change_percentage_24h_in_currency[
                   selectedCurrency.name ?? ''
                 ].toFixed(2)}

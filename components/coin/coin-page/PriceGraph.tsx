@@ -170,7 +170,7 @@ export default function PriceGraph({
                 margin={{
                   top: 5,
                   right: 30,
-                  left: 20,
+                  left: 40,
                   bottom: 5,
                 }}
                 className='h-full w-full'

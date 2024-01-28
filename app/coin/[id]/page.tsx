@@ -81,11 +81,11 @@ export default function CoinPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-
+  console.log(coin);
   return (
     <div className='mt-4 flex flex-col p-4 sm:p-5 w-full lg:w-11/12 xl:w-10/12 2xl:w-9/12 mx-auto'>
       <TopInfo coin={coin} selectedCurrency={selectedCurrency} handleClick={handleCurrencyChange} />
-      <div className='my-4 flex flex-col items-center justify-center h-64 sm:h-96'>
+      <div className='w-full my-4 flex flex-col items-center justify-center h-64 sm:h-96'>
         <PriceGraph
           graphData={graphData}
           graphRange={graphRange}
@@ -117,7 +117,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
             className={`${
               Number(coin.market_data.price_change_percentage_24h_in_currency) < 0
                 ? 'text-red-500'
-                : 'text-emerald-600'
+                : 'text-green-500'
             }`}
           >
             {' '}
@@ -127,22 +127,26 @@ export default function CoinPage({ params }: { params: { id: string } }) {
             %
           </span>{' '}
           in the last 24 hours with a circulating supply of{' '}
-          <span className='font-semibold'>{millify(coin.market_data.circulating_supply)}</span>
+          <span className='font-semibold'>
+            {millify(coin.market_data.circulating_supply)} {coin.symbol.toUpperCase()}
+          </span>
         </p>
       </div>
       <HistoryTable coin={coin} selectedCurrency={selectedCurrency} />
       <PriceInfo coin={coin} selectedCurrency={selectedCurrency} />
       <MarketInfo coin={coin} selectedCurrency={selectedCurrency} />
-      <div className='w-full mt-6'>
-        <h2 className='text-3xl'>
-          About {coin.name} ({coin.symbol.toUpperCase()})
-        </h2>
-        <div
-          id='description'
-          dangerouslySetInnerHTML={{ __html: coin.description.en }}
-          className='mt-3 leading-relaxed whitespace-pre-wrap'
-        ></div>
-      </div>
+      {coin.description.en.length === 0 ? null : (
+        <div className='w-full mt-10 mb-2'>
+          <h2 className='text-3xl'>
+            About {coin.name} ({coin.symbol.toUpperCase()})
+          </h2>
+          <div
+            id='description'
+            dangerouslySetInnerHTML={{ __html: coin.description.en }}
+            className='mt-3 leading-relaxed whitespace-pre-wrap'
+          ></div>
+        </div>
+      )}
     </div>
   );
 }

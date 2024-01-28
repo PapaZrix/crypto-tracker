@@ -21,7 +21,7 @@ export default function PriceInfo({ coin, selectedCurrency }: PriceInfoProps) {
           </span>
           <div className='flex w-60 h-2'>
             <p className='w-1/2 h-full bg-red-500 rounded-l-lg'></p>
-            <p className='w-1/2 h-full bg-green-600 rounded-r-lg'></p>
+            <p className='w-1/2 h-full bg-green-500 rounded-r-lg'></p>
           </div>
           <span className='text-nowrap'>
             High: {selectedCurrency.symbol}

@@ -33,16 +33,11 @@ function Trending({ name, img, percentage, price, id }: Coin) {
         </div>
         <div
           className={`flex gap-2 ${
-            percentage[0] === '-' ? 'text-red-500' : 'text-emerald-600'
+            percentage[0] === '-' ? 'text-red-500' : 'text-green-500'
           } items-center w-full ml-2 lg:text-lg xl:text-2xl`}
         >
           {Number(percentage) > 0 ? <BsArrowUp /> : <BsArrowDown />}
-          <p>
-            {percentage[0] === '-'
-              ? percentage.slice(1, percentage.length)
-              : percentage}
-            %
-          </p>
+          <p>{percentage[0] === '-' ? percentage.slice(1, percentage.length) : percentage}%</p>
         </div>
       </div>
     </Link>

@@ -8,7 +8,7 @@ type MarketInfoProps = {
 
 export default function MarketInfo({ coin, selectedCurrency }: MarketInfoProps) {
   return (
-    <div className='mt-6 w-full text-gray-600 dark:text-gray-400'>
+    <div className='mt-6 my-2 w-full text-gray-600 dark:text-gray-400'>
       <h2 className='text-xl bold text-black dark:text-white'>
         {coin.symbol.toUpperCase()} Market Information
       </h2>
