@@ -2,6 +2,8 @@
 
 This is my first full project in Next.js 13+ (app router) and Typescript. On Crypto Tracker, you can check an individual cryptocurrency coins current price as well as its market movement, including a graphical representation of the selected time span. In case you don't know any, a list of the 200 most popular ones is available on the /popular tab or any of the trending coins shown on the landing page.
 
+\*\* NOTE - Coingecko's API has a per minute request limit so it's quite possible that you'll face an error either loading a coins page, its graph data or the popular table. All errors are handled and provide redirection to either try rerendering the page or to go the landing page. Thank you for understanding.
+
 ![Landing page](/public/assets/readme/crypto.png)
 
 ## Built with

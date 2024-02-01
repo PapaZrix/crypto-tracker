@@ -13,18 +13,13 @@ type DropdownProps = {
 
 type AvailableCurrencies = [Currency] | Currency[] | [];
 
-export default function Dropdown({
-  selectedCurrency,
-  handleClick,
-}: DropdownProps) {
+export default function Dropdown({ selectedCurrency, handleClick }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const currencies: AvailableCurrencies =
     query.length === 0
       ? availableCurrencies
-      : availableCurrencies.filter((curr) =>
-          curr.name.toLowerCase().includes(query.toLowerCase())
-        );
+      : availableCurrencies.filter((curr) => curr.name.toLowerCase().includes(query.toLowerCase()));
 
   const handleClickOutside = () => {
     setIsOpen(false);
@@ -53,8 +48,7 @@ export default function Dropdown({
           />
           <ul className='uppercase text-sm scrollbar-none overflow-y-scroll max-h-52'>
             {currencies.map((currency) =>
-              currency.name?.toLowerCase() ==
-              selectedCurrency.name?.toLowerCase() ? (
+              currency.name?.toLowerCase() == selectedCurrency.name?.toLowerCase() ? (
                 <li
                   onClick={handleClick}
                   className='my-1 p-1 text-orange-500 cursor-pointer rounded hover:bg-gray-200 dark:hover:bg-gray-700'
