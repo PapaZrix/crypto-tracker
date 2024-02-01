@@ -153,7 +153,7 @@ export default function HistoryTable({ coin, selectedCurrency }: HistoryTablePro
                   value={
                     coin.market_data.price_change_percentage_30d === 0
                       ? 'N/A'
-                      : coin.market_data.price_change_percentage_7d_in_currency[
+                      : coin.market_data.price_change_percentage_30d_in_currency[
                           selectedCurrency.name ?? ''
                         ]
                           .toFixed(2)
