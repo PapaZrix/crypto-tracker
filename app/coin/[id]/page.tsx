@@ -115,7 +115,11 @@ export default function CoinPage({ params }: { params: { id: string } }) {
           {coin.name} is {movement}
           <span
             className={`${
-              Number(coin.market_data.price_change_percentage_24h_in_currency) < 0
+              Number(
+                coin.market_data.price_change_percentage_24h_in_currency[
+                  selectedCurrency.name ?? ''
+                ]
+              ) < 0
                 ? 'text-red-500'
                 : 'text-green-500'
             }`}
