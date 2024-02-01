@@ -81,7 +81,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
       </div>
     );
   }
-  console.log(coin);
+  console.log(coin, graphData);
   return (
     <div className='mt-4 flex flex-col p-4 sm:p-5 w-full lg:w-11/12 xl:w-10/12 2xl:w-9/12 mx-auto'>
       <TopInfo coin={coin} selectedCurrency={selectedCurrency} handleClick={handleCurrencyChange} />
@@ -107,6 +107,7 @@ export default function CoinPage({ params }: { params: { id: string } }) {
           </span>{' '}
           with a current market cap of{' '}
           <span className='font-semibold'>
+            {selectedCurrency.symbol}
             {millify(coin.market_data.market_cap[selectedCurrency.name ?? ''], {
               precision: 2,
             })}

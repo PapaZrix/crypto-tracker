@@ -1,5 +1,11 @@
 import TableItem from '@/components/exchange/TableItem';
 import { Exchange } from '@/types';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Popular Exchanges | CryptoTracker',
+  description: 'Check out the top crypto exchanges right now and visit their website ',
+};
 
 async function getExchanges() {
   const res = await fetch('https://api.coingecko.com/api/v3/exchanges', {

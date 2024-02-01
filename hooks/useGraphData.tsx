@@ -22,7 +22,7 @@ export default function useGraphData() {
 
       const graphData = data.prices.map((price: Ticker) => {
         const [timestamp, p] = price;
-        const date = new Date(timestamp).toLocaleDateString('en-us', {
+        const date = new Date(timestamp).toLocaleDateString('en-gb', {
           day: 'numeric',
           month: 'numeric',
           year: '2-digit',
