@@ -1,34 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Crypto Tracker
 
-## Getting Started
+This is my first full project in Next.js 13+ (app router) and Typescript. On Crypto Tracker, you can check an individual cryptocurrency coins current price as well as its market movement, including a graphical representation of the selected time span. In case you don't know any, a list of the 200 most popular ones is available on the /popular tab or any of the trending coins shown on the landing page.
 
-First, run the development server:
+![Landing page](../../Pictures/Screenshots/crypto.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Built with
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Next.js 14](https://nextjs.org/) - web framework
+- [Typescript](https://www.typescriptlang.org/) - type safety
+- [Tailwind CSS](https://tailwindcss.com/) - styling
+- [Recharts](https://recharts.org/en-US/) - graph
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Search
 
-## Learn More
+- Search for all available coins on the search bar in the header, and click on it to navigate to its individual page.
 
-To learn more about Next.js, take a look at the following resources:
+![Search functionality](../../Downloads/search.gif)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Light / Dark Mode
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Switch to your prefered mode in the theme switcher also located in the header. Your preference gets saved locally so you don't have to worry about changing it every time.
 
-## Deploy on Vercel
+![Theme switcher](../../Downloads/theme.gif)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Individual coin page, e.g. Bitcoin
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Search for a coin on the search bar, click on it and navigate to its page. From there, check its current price, price history, general information and description as well as graphical representation of its price movement for a provided time span.
+
+![Coin page](../../Downloads/coin.gif)
+
+### Popular coins table
+
+- Click on the popular tab in the header and check out the top 200 coins by market cap, change the filter as you'd like.
+
+![Popular table](../../Downloads/popular.gif)
+
+### Exchanges table
+
+- Check out the top cryptocurrency exchanges and go to their website to trade
+
+![Exchange table](../../Downloads/exchanges.gif)
+
+## Work in progress
+
+- As there is no free and reliable crypto news API, I plan on scraping a couple crypto news outlets (Cointelegraph, Coindesk, etc.) and serving that data either in a separate tab or somewhere on the landing page.
