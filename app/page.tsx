@@ -26,13 +26,13 @@ export default async function Home() {
     <div className='flex p-4 items-center w-full sm:w-10/12 min-h-[calc(100vh_-_83.26px)] mx-auto text-center sm:text-left gap-4 justify-center'>
       <div className='flex flex-col flex-1 h-full justify-center items-center'>
         <div className='flex flex-col gap-2 mb-4 sm:mb-0'>
-          <h1 className='text-3xl xl:text-5xl 2xl:text-[3.5rem] mb-2'>
+          <h1 className='text-3xl lg:text-4xl xl:text-5xl 2xl:text-[3.5rem] mb-2'>
             Find your favorite cryptocurrency and its current market value
           </h1>
-          <h2 className='text-lg sm:block lg:text-2xl xl:text-3xl'>
+          <h2 className='text-lg sm:block lg:text-2xl 2xl:text-3xl'>
             Charts and market movement available
           </h2>
-          <h3 className='sm:block lg:text-xl xl:text-2xl text-gray-400'>
+          <h3 className='sm:block lg:text-xl 2xl:text-2xl text-gray-400'>
             See historic data for every cryptocurrency
           </h3>
           <div className='text-md sm:text-lg flex items-center justify-center text-center gap-2 text-gray-400'>

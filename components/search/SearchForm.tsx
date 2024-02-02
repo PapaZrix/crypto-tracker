@@ -26,7 +26,7 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
     <>
       <div className='flex gap-2 items-center font-normal'>
         <div
-          className='hidden sm:flex bg-white sm:bg-gray-100 gap-2 items-center w-full sm:w-52 border h-10 sm:p-2 text-black rounded-xl dark:bg-gray-700 dark:border-gray-500 dark:text-gray-400 cursor-pointer shadow-md dark:shadow-sm dark:shadow-orange-500'
+          className='hidden lg:flex bg-white sm:bg-gray-100 gap-2 items-center w-full sm:w-52 border h-10 sm:p-2 text-black rounded-xl dark:bg-gray-700 dark:border-gray-500 dark:text-gray-400 cursor-pointer shadow-md dark:shadow-sm dark:shadow-orange-500'
           onClick={() => {
             setIsOpen(true);
           }}
@@ -39,7 +39,7 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
           alt='search'
           width={20}
           height={10}
-          className='sm:hidden'
+          className='lg:hidden'
           onClick={() => {
             setIsOpen(true);
           }}
