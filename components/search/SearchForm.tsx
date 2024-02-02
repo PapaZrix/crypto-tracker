@@ -39,7 +39,7 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
           alt='search'
           width={20}
           height={10}
-          className='lg:hidden'
+          className='lg:hidden cursor-pointer'
           onClick={() => {
             setIsOpen(true);
           }}

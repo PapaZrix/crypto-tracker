@@ -23,10 +23,10 @@ export default async function Home() {
   const trendingCoins = await getTrendingCoins();
 
   return (
-    <div className='flex p-4 items-center w-full sm:w-10/12 min-h-[calc(100vh_-_83.26px)] mx-auto text-center sm:text-left gap-4 justify-center'>
+    <div className='flex p-4 items-center w-full md:w-11/12 lg:w-10/12 min-h-[calc(100vh_-_83.26px)] mx-auto text-center sm:text-left gap-6 xl:gap-4 justify-center'>
       <div className='flex flex-col flex-1 h-full justify-center items-center'>
         <div className='flex flex-col gap-2 mb-4 sm:mb-0'>
-          <h1 className='text-3xl lg:text-4xl xl:text-5xl 2xl:text-[3.5rem] mb-2'>
+          <h1 className='text-3xl lg:text-5xl 2xl:text-[3.5rem] mb-2'>
             Find your favorite cryptocurrency and its current market value
           </h1>
           <h2 className='text-lg sm:block lg:text-2xl 2xl:text-3xl'>

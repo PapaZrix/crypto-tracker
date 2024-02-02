@@ -14,7 +14,6 @@ import Loader from '@/components/layout/Loader';
 import useWindowSize from '@/hooks/useWindowSize';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
-import { IoMdInformationCircleOutline } from 'react-icons/io';
 
 type PriceGraphProps = {
   graphData: GraphData | undefined;
@@ -69,8 +68,9 @@ export default function PriceGraph({
             height={width < 640 ? 100 : 200}
             className='rounded-full'
           />
-          <p className='text-lg max-w-[300px] sm:max-w-max mx-auto sm:text-xl'>
-            The API has no more requests left, please try again in a minute or so
+          <p className='text-lg text-center sm:mx-w-max mx-auto sm:text-xl'>
+            The API has no more requests left, please try again in a minute by switching the graph
+            range above or refreshing the page
           </p>
         </div>
       ) : isLoading ? (

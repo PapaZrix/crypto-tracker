@@ -6,6 +6,11 @@ import { useState } from 'react';
 export default function useGraphData() {
   const [graphData, setGraphData] = useState<GraphData>();
   const [isLoading, setIsLoading] = useState(false);
+  const [graphRange, setGraphRange] = useState(30);
+
+  const handleGraphRange = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setGraphRange(Number(event.currentTarget.value));
+  };
 
   const getGraphData = async (id: string, currency: Currency, range: number) => {
     const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${range}`;
@@ -45,5 +50,5 @@ export default function useGraphData() {
     }
   };
 
-  return { graphData, isLoading, getGraphData };
+  return { graphData, isLoading, getGraphData, handleGraphRange, graphRange };
 }
