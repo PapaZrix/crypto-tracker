@@ -20,7 +20,13 @@ export const metadata: Metadata = {
     title: 'CryptoTracker | Find your favorite coin',
     url: 'https://crypto-tracker-sepia-chi.vercel.app',
     description: 'Check out your favorite coins and see their current and historic market movement',
-    images: '/assets/images/logo.png',
+    images: [
+      {
+        url: 'https://utfs.io/f/8f630f55-9aa1-438d-a645-d3c88f13c401-1zbfv.png',
+        width: 800,
+        height: 600,
+      },
+    ],
   },
 };
 

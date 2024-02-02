@@ -17,13 +17,14 @@ export async function generateMetadata(
     next: { revalidate: 6000 },
   });
   const coin: CoinPageParams = await res.json();
+
   return {
     title: `${coin.name} price today, ${coin.symbol.toUpperCase()} to USD live price`,
     description: coin.description.en,
     keywords: `Buy ${coin.name} ${coin.symbol.toUpperCase()} USD crypto`,
     metadataBase: new URL('https://crypto-tracker-sepia-chi.vercel.app'),
     openGraph: {
-      images: coin.image.large,
+      images: [coin.image.large],
       description: `Check ${
         coin.name
       } (${coin.symbol.toUpperCase()}) price and its recent market movement`,
