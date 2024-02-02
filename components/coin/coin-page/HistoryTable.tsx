@@ -89,7 +89,7 @@ export default function HistoryTable({ coin, selectedCurrency }: HistoryTablePro
                   )
                 )}`}
               >
-                {coin.market_data.price_change_percentage_7d === 0 ? '' : selectedCurrency.symbol}
+                {coin.market_data.price_change_percentage_7d === 0 ? '' : selectedCurrency.symbol}{' '}
                 <InfoTooltip
                   value={getPriceChange(
                     coin.market_data.current_price[selectedCurrency.name ?? ''],
@@ -132,7 +132,7 @@ export default function HistoryTable({ coin, selectedCurrency }: HistoryTablePro
                   )
                 )}`}
               >
-                {coin.market_data.price_change_percentage_30d === 0 ? '' : selectedCurrency.symbol}
+                {coin.market_data.price_change_percentage_30d === 0 ? '' : selectedCurrency.symbol}{' '}
                 <InfoTooltip
                   value={getPriceChange(
                     coin.market_data.current_price[selectedCurrency.name ?? ''],
