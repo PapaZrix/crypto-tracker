@@ -8,7 +8,6 @@ type HistoryTableProps = {
 };
 
 function getPriceChange(price: any, percentage: any): any {
-  console.log(price, percentage);
   if (percentage === undefined) return 'N/A';
   let priceChange = 0;
   if (percentage < 0) {
@@ -20,11 +19,15 @@ function getPriceChange(price: any, percentage: any): any {
   }
 }
 
-export default function HistoryTable({ coin, selectedCurrency }: HistoryTableProps) {
+export default function HistoryTable({
+  coin,
+  selectedCurrency,
+}: HistoryTableProps) {
   return (
     <div className='mt-6 w-full'>
       <h3 className='text-xl bold'>
-        {coin.symbol.toUpperCase()} Price History {selectedCurrency.name?.toUpperCase()}
+        {coin.symbol.toUpperCase()} Price History{' '}
+        {selectedCurrency.name?.toUpperCase()}
       </h3>
       <div className='relative overflow-visible'>
         <table className='mt-2 w-full table-auto'>
@@ -89,7 +92,9 @@ export default function HistoryTable({ coin, selectedCurrency }: HistoryTablePro
                   )
                 )}`}
               >
-                {coin.market_data.price_change_percentage_7d === 0 ? '' : selectedCurrency.symbol}{' '}
+                {coin.market_data.price_change_percentage_7d === 0
+                  ? ''
+                  : selectedCurrency.symbol}{' '}
                 <InfoTooltip
                   value={getPriceChange(
                     coin.market_data.current_price[selectedCurrency.name ?? ''],
@@ -132,7 +137,9 @@ export default function HistoryTable({ coin, selectedCurrency }: HistoryTablePro
                   )
                 )}`}
               >
-                {coin.market_data.price_change_percentage_30d === 0 ? '' : selectedCurrency.symbol}{' '}
+                {coin.market_data.price_change_percentage_30d === 0
+                  ? ''
+                  : selectedCurrency.symbol}{' '}
                 <InfoTooltip
                   value={getPriceChange(
                     coin.market_data.current_price[selectedCurrency.name ?? ''],
@@ -175,7 +182,9 @@ export default function HistoryTable({ coin, selectedCurrency }: HistoryTablePro
                   )
                 )}`}
               >
-                {coin.market_data.price_change_percentage_60d === 0 ? '' : selectedCurrency.symbol}{' '}
+                {coin.market_data.price_change_percentage_60d === 0
+                  ? ''
+                  : selectedCurrency.symbol}{' '}
                 <InfoTooltip
                   value={getPriceChange(
                     coin.market_data.current_price[selectedCurrency.name ?? ''],

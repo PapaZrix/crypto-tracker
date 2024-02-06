@@ -6,7 +6,7 @@ export type TrendingCoin = {
     data: {
       price: string;
       price_change_percentage_24h: {
-        usd: string;
+        usd: number;
       };
     };
   };

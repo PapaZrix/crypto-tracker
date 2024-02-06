@@ -45,7 +45,7 @@ export default async function Home() {
                 alt='coingecko logo'
                 width='120'
                 height='120'
-                className='w-32 sm:w-1/4 sm:mx-0'
+                className='w-28 xl:w-1/5 2xl:w-1/6 sm:mx-0'
               />
             </Link>
           </div>
@@ -54,16 +54,7 @@ export default async function Home() {
       <div className='w-full h-full flex-1 justify-center items-center hidden sm:flex flex-col gap-2'>
         <div className='grid grid-cols-3 grid-rows-2 gap-4'>
           {trendingCoins.slice(0, 6).map((coin: TrendingCoin) => {
-            return (
-              <Trending
-                key={coin.item.name}
-                img={coin.item.large}
-                name={coin.item.name}
-                percentage={Number(coin.item.data.price_change_percentage_24h.usd).toFixed(2)}
-                price={coin.item.data.price.slice(1)}
-                id={coin.item.id}
-              />
-            );
+            return <Trending key={coin.item.name} item={coin.item} />;
           })}
         </div>
       </div>

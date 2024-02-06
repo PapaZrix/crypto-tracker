@@ -11,6 +11,7 @@ import HistoryTable from '@/components/coin/coin-page/HistoryTable';
 import millify from 'millify';
 import PriceInfo from '@/components/coin/coin-page/PriceInfo';
 import MarketInfo from '@/components/coin/coin-page/MarketInfo';
+import ScrollToTop from '@/components/layout/ScrollToTop';
 
 export default function CoinPage({
   coin,
@@ -20,13 +21,18 @@ export default function CoinPage({
   params: { id: string };
 }) {
   const { isLoading, graphData, getGraphData } = useGraphData();
-  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(currencies[0]);
+  const [selectedCurrency, setSelectedCurrency] = useState<Currency>(
+    currencies[0]
+  );
   const [graphRange, setGraphRange] = useState(30);
   const [isMounted, setIsMounted] = useState(false);
   const { id } = params;
   const movement =
-    Number(coin?.market_data.price_change_percentage_24h_in_currency[selectedCurrency.name ?? '']) >
-    0
+    Number(
+      coin?.market_data.price_change_percentage_24h_in_currency[
+        selectedCurrency.name ?? ''
+      ]
+    ) > 0
       ? 'up'
       : 'down';
 
@@ -48,7 +54,9 @@ export default function CoinPage({
     }
   }, [selectedCurrency, graphRange]);
 
-  const handleCurrencyChange = (event: React.MouseEvent<HTMLLIElement>): void => {
+  const handleCurrencyChange = (
+    event: React.MouseEvent<HTMLLIElement>
+  ): void => {
     const currency = event.currentTarget.textContent;
     setSelectedCurrency({
       ...selectedCurrency,
@@ -61,7 +69,7 @@ export default function CoinPage({
     setGraphRange(Number(event.currentTarget.value));
   };
 
-  if (coin === undefined) throw new Error('smh');
+  if (coin === undefined) throw new Error('Too many requests');
 
   if (!isMounted) {
     return (
@@ -73,7 +81,11 @@ export default function CoinPage({
 
   return (
     <div className='mt-4 flex flex-col p-4 sm:p-5 w-full lg:w-11/12 xl:w-10/12 2xl:w-9/12 mx-auto'>
-      <TopInfo coin={coin} selectedCurrency={selectedCurrency} handleClick={handleCurrencyChange} />
+      <TopInfo
+        coin={coin}
+        selectedCurrency={selectedCurrency}
+        handleClick={handleCurrencyChange}
+      />
       <div className='w-full my-4 flex flex-col items-center justify-center h-64 sm:h-96'>
         <PriceGraph
           graphData={graphData}
@@ -85,14 +97,17 @@ export default function CoinPage({
       </div>
       <hr className='mt-4 border-black dark:border-orange-500' />
       <div>
-        <h2 className='text-3xl mt-4'>{coin.symbol.toUpperCase()} Price Live Data</h2>
+        <h2 className='text-3xl mt-4'>
+          {coin.symbol.toUpperCase()} Price Live Data
+        </h2>
         <p className='mt-4 dark:text-[#B7BDC6]'>
-          {coin.name} price is updated every 5 minutes due to API restrictions. The live price of{' '}
-          {coin.name} is{' '}
+          {coin.name} price is updated every 5 minutes due to API restrictions.
+          The live price of {coin.name} is{' '}
           <span className='font-semibold'>
             {selectedCurrency.symbol}
             {coin.market_data.current_price[selectedCurrency.name ?? '']} (
-            {coin.symbol.toUpperCase()} / {selectedCurrency.name?.toUpperCase()})
+            {coin.symbol.toUpperCase()} / {selectedCurrency.name?.toUpperCase()}
+            )
           </span>{' '}
           with a current market cap of{' '}
           <span className='font-semibold' suppressHydrationWarning>
@@ -122,7 +137,8 @@ export default function CoinPage({
           </span>{' '}
           in the last 24 hours with a circulating supply of{' '}
           <span className='font-semibold' suppressHydrationWarning>
-            {millify(coin.market_data.circulating_supply)} {coin.symbol.toUpperCase()}
+            {millify(coin.market_data.circulating_supply)}{' '}
+            {coin.symbol.toUpperCase()}
           </span>
         </p>
       </div>
@@ -141,6 +157,7 @@ export default function CoinPage({
           ></div>
         </div>
       )}
+      <ScrollToTop />
     </div>
   );
 }

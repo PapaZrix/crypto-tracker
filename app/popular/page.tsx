@@ -26,7 +26,9 @@ const getCoins = async () => {
 
 export default function PopularTable() {
   const [coins, setCoins] = useState<TableCoin[] | null>([] || null);
-  const [visibleCoins, setVisibleCoins] = useState<TableCoin[] | null>([] || null);
+  const [visibleCoins, setVisibleCoins] = useState<TableCoin[] | null>(
+    [] || null
+  );
   const [activeFilter, setActiveFilter] = useState<any>(filters[2]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -73,9 +75,7 @@ export default function PopularTable() {
 
   const handleFilterChange = (e: React.MouseEvent<HTMLLIElement>): void => {
     const target = e.currentTarget.id;
-    console.log(target);
     const filter = filters.find((f) => f.filter_api === target);
-    console.log(filter);
 
     setCoins((coins as TableCoin[]).sort(customSort(filter?.filter_api)));
     setActiveFilter(filter);
@@ -153,9 +153,15 @@ export default function PopularTable() {
               </th>
               <th className='text-start bg-gray-200 dark:bg-gray-700'>Price</th>
               <th className='bg-gray-200 dark:bg-gray-700'>24h %</th>
-              <th className='text-end bg-gray-200 dark:bg-gray-700'>Market Cap</th>
-              <th className='text-end bg-gray-200 dark:bg-gray-700'>Total Volume</th>
-              <th className='text-end bg-gray-200 dark:bg-gray-700'>Circulating Supply</th>
+              <th className='text-end bg-gray-200 dark:bg-gray-700'>
+                Market Cap
+              </th>
+              <th className='text-end bg-gray-200 dark:bg-gray-700'>
+                Total Volume
+              </th>
+              <th className='text-end bg-gray-200 dark:bg-gray-700'>
+                Circulating Supply
+              </th>
             </tr>
           </thead>
           <tbody className='divide-y divide-gray-200 dark:divide-gray-600'>
@@ -181,21 +187,35 @@ export default function PopularTable() {
       </div>
       <div className='my-4 flex items-center justify-center gap-4'>
         <ul className='flex justify-center gap-4 items-center'>
-          <li className='cursor-pointer' onClick={() => changePage(pagination.active - 1)}>
+          <li
+            className='cursor-pointer'
+            onClick={() => changePage(pagination.active - 1)}
+          >
             <BsArrowLeft size='1.5rem' />
           </li>
           {pagination.range.map((r) =>
             pagination.active === r ? (
-              <li onClick={() => changePage(r)} className='cursor-pointer text-orange-500' key={r}>
+              <li
+                onClick={() => changePage(r)}
+                className='cursor-pointer text-orange-500'
+                key={r}
+              >
                 {r}
               </li>
             ) : (
-              <li onClick={() => changePage(r as number)} className='cursor-pointer' key={r}>
+              <li
+                onClick={() => changePage(r as number)}
+                className='cursor-pointer'
+                key={r}
+              >
                 {r}
               </li>
             )
           )}
-          <li className='cursor-pointer' onClick={() => changePage(pagination.active + 1)}>
+          <li
+            className='cursor-pointer'
+            onClick={() => changePage(pagination.active + 1)}
+          >
             <BsArrowRight size='1.5rem' />
           </li>
         </ul>

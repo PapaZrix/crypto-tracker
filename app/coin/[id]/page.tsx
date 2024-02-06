@@ -13,22 +13,27 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const id = params.id;
 
-  const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`, {
-    next: { revalidate: 6000 },
-  });
+  const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`);
+
   const coin: CoinPageParams = await res.json();
 
   return {
-    title: `${coin.name} price today, ${coin.symbol.toUpperCase()} to USD live price`,
-    description: coin.description.en,
-    keywords: `Buy ${coin.name} ${coin.symbol.toUpperCase()} USD crypto`,
+    title: `${coin?.name ?? 'Coin'} price today, ${
+      coin?.symbol?.toUpperCase() ?? 'Coin'
+    } to USD live price`,
+    description:
+      coin?.description?.en ??
+      'This coin currently has no description available due to API restrictions',
+    keywords: `Buy ${coin?.name ?? 'COIN'} ${
+      coin?.symbol?.toUpperCase() ?? 'Coin'
+    } USD crypto`,
     metadataBase: new URL('https://crypto-tracker-sepia-chi.vercel.app'),
     openGraph: {
-      images: [coin.image.large],
-      description: `Check ${
-        coin.name
-      } (${coin.symbol.toUpperCase()}) price and its recent market movement`,
-      title: `${coin.name} price today`,
+      images: [coin?.image?.large ?? ''],
+      description: `Check ${coin?.name ?? 'Coin'} (${
+        coin?.symbol?.toUpperCase() ?? 'Coin'
+      }) price and its recent market movement`,
+      title: `${coin?.name ?? 'Coin'} price today`,
     },
   };
 }
