@@ -7,7 +7,7 @@ function Trending({ item }: TrendingCoin) {
   return (
     <Link
       href={`/coin/${item.id}`}
-      className='hover:scale-105 transition-transform duration-200 ease-in-out'
+      className='hover:scale-105 backface-hidden will-change-transform transition-transform duration-200 ease-in-out'
     >
       <div className='bg-gray-200 p-4 lg:p-3 xl-p-5 2xl:p-8 flex flex-col justify-center sm:justify-between md:gap-0 lg:gap-4 rounded-xl shadow-md dark:bg-gray-800 dark:shadow-orange-500 text-sm md:h-32 lg:h-40 xl:h-44'>
         <div className='flex gap-2 w-full items-center md:flex-col lg:flex-row xl:justify-center 2xl:justify-normal md:h-24 lg:h-32 relative'>
