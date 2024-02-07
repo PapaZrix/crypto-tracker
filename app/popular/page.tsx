@@ -1,7 +1,7 @@
 'use client';
 
-import { TableCoin } from '@/types';
-import { useEffect, useRef, useState } from 'react';
+import { SearchCoin } from '@/types';
+import { useEffect, useState } from 'react';
 import { filters } from '@/constants';
 import Loader from '@/components/layout/Loader';
 import TableItem from '@/components/popular/TableItem';
@@ -11,6 +11,12 @@ import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 
 const ITEMS_PER_PAGE = 25;
+
+interface TableCoin extends SearchCoin {
+  market_cap: number;
+  total_supply: number;
+  total_volume: number;
+}
 
 const getCoins = async () => {
   const url =
@@ -120,7 +126,7 @@ export default function PopularTable() {
                 filter.filter_name === activeFilter.filter_name ? (
                   <li
                     id={filter.filter_api}
-                    className='cursor-pointer p-2 text-orange-500 hover:bg-gray-200 hover:dark-bg-gray-700'
+                    className='cursor-pointer p-2 text-orange-500 hover:bg-gray-200 hover:dark:bg-gray-600'
                     key={filter.filter_name}
                     onClick={handleFilterChange}
                   >
@@ -128,7 +134,7 @@ export default function PopularTable() {
                   </li>
                 ) : (
                   <li
-                    className='cursor-pointer p-2 hover:bg-gray-200 hover:dark-bg-gray-700'
+                    className='cursor-pointer p-2 hover:bg-gray-200 hover:dark:bg-gray-600'
                     id={filter.filter_api}
                     key={filter.filter_name}
                     onClick={handleFilterChange}
