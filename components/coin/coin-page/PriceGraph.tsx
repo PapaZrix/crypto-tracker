@@ -104,7 +104,7 @@ export default function PriceGraph({
               <CartesianGrid strokeDasharray='1 1' vertical={false} />
               <XAxis
                 padding={{ right: 20 }}
-                className='text-base sm:text-base'
+                tick={{ fontSize: 12.5 }}
                 dataKey='Date'
                 dy={8}
                 stroke={axisColor}
@@ -116,7 +116,7 @@ export default function PriceGraph({
                 domain={['dataMin', 'dataMax']}
                 orientation='right'
                 stroke={axisColor}
-                className='text-base sm:text-base'
+                tick={{ fontSize: 12.5 }}
               />
               <Tooltip
                 content={
@@ -140,7 +140,7 @@ export default function PriceGraph({
               <LineChart
                 data={graphData}
                 margin={{
-                  top: 5,
+                  top: 10,
                   right: 30,
                   left: 40,
                   bottom: 5,
@@ -159,13 +159,14 @@ export default function PriceGraph({
                   </filter>
                 </defs>
                 <CartesianGrid strokeDasharray='1 1' vertical={false} />
-                <XAxis dataKey='Date' dy={8} stroke={axisColor} />
+                <XAxis dataKey='Date' dy={8} stroke={axisColor} tick={{ fontSize: 12.5 }} />
                 <YAxis
                   stroke={axisColor}
                   tickCount={6}
                   type='number'
                   dy={-5}
                   domain={['dataMin', 'dataMax']}
+                  tick={{ fontSize: 12.5 }}
                 />
                 <Tooltip
                   content={

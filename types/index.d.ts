@@ -46,6 +46,7 @@ export type CoinPageParams = {
   market_data: {
     current_price: { [key: string]: number };
     ath: { [key: string]: number };
+    ath_date: { [key: string]: Date };
     market_cap: { [key: string]: number };
     market_cap_rank: number;
     total_volume: { [key: string]: number };

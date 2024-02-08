@@ -1,6 +1,7 @@
 'use client';
 
 import { Currency, GraphData, Ticker } from '@/types';
+import { formatPrice } from '@/utils/format';
 import { useState } from 'react';
 
 export default function useGraphData() {
@@ -35,7 +36,7 @@ export default function useGraphData() {
 
         return {
           Date: date,
-          Price: Number(p.toFixed(4)),
+          Price: formatPrice(p),
           Time: new Date(timestamp).toLocaleTimeString(),
         };
       });

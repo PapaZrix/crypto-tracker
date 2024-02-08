@@ -1,5 +1,6 @@
 import Dropdown from '@/components/layout/Dropdown';
 import type { CoinPageParams, Currency } from '@/types';
+import { formatPrice, formatValue } from '@/utils/format';
 import Image from 'next/image';
 
 type TopInfoProps = {
@@ -34,7 +35,8 @@ export default function TopInfo({ coin, selectedCurrency, handleClick }: TopInfo
         <div className='flex items-center sm:gap-2'>
           <p className='text-2xl hidden sm:block'>Current Price: </p>
           <div className='text-2xl'>
-            {selectedCurrency.symbol} {coin?.market_data.current_price[selectedCurrency.name ?? '']}
+            {selectedCurrency.symbol}{' '}
+            {formatPrice(coin?.market_data.current_price[selectedCurrency.name ?? ''])}
           </div>
         </div>
         <div className='flex items-center gap-2'>

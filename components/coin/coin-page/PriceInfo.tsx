@@ -1,5 +1,6 @@
 import type { CoinPageParams, Currency } from '@/types';
 import { checkPercentSign } from '@/utils/checkSign';
+import { formatPrice } from '@/utils/format';
 
 type PriceInfoProps = {
   coin: CoinPageParams;
@@ -17,7 +18,7 @@ export default function PriceInfo({ coin, selectedCurrency }: PriceInfoProps) {
         <div className='flex items-center w-full gap-4 mt-1 text-sm'>
           <span className='text-nowrap'>
             Low: {selectedCurrency.symbol}
-            {coin.market_data.low_24h[selectedCurrency.name ?? ''].toFixed(4)}
+            {formatPrice(coin.market_data.low_24h[selectedCurrency.name ?? ''])}
           </span>
           <div className='flex w-60 h-2'>
             <p className='w-1/2 h-full bg-red-500 rounded-l-lg'></p>
@@ -25,12 +26,18 @@ export default function PriceInfo({ coin, selectedCurrency }: PriceInfoProps) {
           </div>
           <span className='text-nowrap'>
             High: {selectedCurrency.symbol}
-            {coin.market_data.high_24h[selectedCurrency.name ?? ''].toFixed(4)}
+            {formatPrice(coin.market_data.high_24h[selectedCurrency.name ?? ''])}
           </span>
         </div>
         <div className='mt-4 w-full flex flex-col sm:flex-row justify-between gap-6 sm:gap-0'>
           <div className='w-full flex items-center justify-between sm:block'>
-            <p>All Time High</p>
+            <p>
+              All Time High (
+              {new Date(coin.market_data.ath_date[selectedCurrency.name ?? '']).toLocaleDateString(
+                'en-GB'
+              )}
+              )
+            </p>
             <p className='text-black font-medium dark:text-white'>
               {selectedCurrency.symbol}
               {coin.market_data.ath[selectedCurrency.name ?? '']}
