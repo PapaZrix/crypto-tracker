@@ -1,11 +1,10 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const INCREMENTS = 100;
 const TIME_IN_SECONDS = 60;
 const INTERVAL = (TIME_IN_SECONDS * 1000) / INCREMENTS;
-const MINUTE_IN_MILLISECONDS = 60000;
 
 type CountdownProps = {
   counter: number;
@@ -14,14 +13,12 @@ type CountdownProps = {
 
 export default function Countdown({ counter, setCounter }: CountdownProps) {
   useEffect(() => {
-    const startTime = new Date().getTime();
     const timer: any = setInterval(() => {
-      setCounter((prevCount) => prevCount + 1);
-      console.log(new Date().getTime() - startTime);
-      if (new Date().getTime() - startTime > MINUTE_IN_MILLISECONDS) {
+      if (counter >= INCREMENTS) {
         clearInterval(timer);
         return;
       }
+      setCounter((prevCount) => prevCount + 1);
     }, INTERVAL);
 
     return () => clearInterval(timer);
@@ -39,12 +36,6 @@ export default function Countdown({ counter, setCounter }: CountdownProps) {
           style={{ width: `${counter}%` }}
         ></span>
       </div>
-      {counter === INCREMENTS && (
-        <p className='w-full h-12 mt-2 text-center'>
-          API should be ready now. Click the{' '}
-          <span className='bold underline underline-offset-4'>Try Again</span> button
-        </p>
-      )}
     </div>
   );
 }
