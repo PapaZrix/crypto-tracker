@@ -70,11 +70,13 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
               className='cursor-pointer dark:invert'
             />
           </div>
-          <div className='p-2 sm:p-0 flex flex-col my-2 overflow-y-scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-200 dark:scrollbar-track-gray-500 dark:scrollbar-thumb-gray-600'>
+          <ul className='p-2 sm:p-0 flex flex-col my-2 overflow-y-scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-200 dark:scrollbar-track-gray-500 dark:scrollbar-thumb-gray-600'>
             {matchingCoins?.map((coin) => (
-              <Link key={coin.id} href={`/coin/${coin.id}`} onClick={() => setIsOpen(!isOpen)}>
-                <div
+              <li key={coin.id}>
+                <Link
                   key={coin.id}
+                  href={`/coin/${coin.id}`}
+                  onClick={() => setIsOpen(!isOpen)}
                   className='py-2 px-2 sm:py-2 sm:px-1 text-sm rounded-md flex justify-between items-center hover:bg-gray-200 hover:dark:bg-gray-600'
                 >
                   <div className='flex items-center gap-2 justify-between sm:justify-normal w-full'>
@@ -104,10 +106,10 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
                       %
                     </p>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       )}
     </>
