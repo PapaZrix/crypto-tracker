@@ -36,7 +36,7 @@ export default function useGraphData() {
 
         return {
           Date: date,
-          Price: formatPrice(p),
+          Price: Number(formatPrice(p)),
           Time: new Date(timestamp).toLocaleTimeString(),
         };
       });

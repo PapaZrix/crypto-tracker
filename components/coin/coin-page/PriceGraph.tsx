@@ -142,7 +142,7 @@ export default function PriceGraph({
                 margin={{
                   top: 10,
                   right: 30,
-                  left: 40,
+                  left: 32.5,
                   bottom: 5,
                 }}
                 className='h-full w-full'
@@ -164,7 +164,7 @@ export default function PriceGraph({
                   stroke={axisColor}
                   tickCount={6}
                   type='number'
-                  dy={-5}
+                  dy={2}
                   domain={['dataMin', 'dataMax']}
                   tick={{ fontSize: 12.5 }}
                 />
