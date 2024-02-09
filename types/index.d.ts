@@ -12,6 +12,16 @@ export type TrendingCoin = {
   };
 };
 
+export type NFT = {
+  id: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+  native_currency_symbol: string;
+  floor_price_24h_percentage_change: number;
+  floor_price_in_native_currency: number;
+};
+
 export type SearchCoin = {
   name: string;
   id: string;

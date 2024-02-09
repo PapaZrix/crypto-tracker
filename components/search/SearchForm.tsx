@@ -38,10 +38,19 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === 'Escape') {
+      setIsOpen(false);
+      setQuery('');
+      setActive(0);
+    }
+
     if (matchingCoins && matchingCoins.length > 0) {
       switch (e.key) {
         case 'ArrowUp':
           return active === 0 ? null : setActive(active - 1);
+        case 'Tab':
+          e.preventDefault();
+          return active + 1 === matchingCoins.length ? null : setActive(active + 1);
         case 'ArrowDown':
           return active + 1 === matchingCoins.length ? null : setActive(active + 1);
         case 'Enter':
@@ -79,7 +88,7 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
       {isOpen && (
         <div
           ref={ref}
-          className='bg-white sm:bg-gray-100 fixed sm:absolute top-0 sm:-top-2 left-0 z-50 sm:rounded-xl w-full h-full font-normal sm:shadow-md sm:dark:shadow-orange-500 dark:bg-[#222531] dark:sm:bg-gray-700 flex flex-col gap-2 sm:h-64 mt-0 sm:mt-2 sm:p-2 dark:sm:border-gray-500'
+          className='bg-white sm:bg-gray-100 fixed sm:absolute top-0 sm:-top-2 left-0 z-50 sm:rounded-xl w-full h-full font-normal sm:shadow-md sm:dark:shadow-orange-500 dark:bg-[#222531] dark:sm:bg-gray-800 flex flex-col gap-2 sm:h-64 mt-0 sm:mt-2 sm:p-2 dark:sm:border-gray-500'
         >
           <div className='flex gap-2 items-center p-4 sm:p-2 sm:border-b-2 dark:border-gray-600 mobile-shadow sm:shadow-none w-full'>
             <Image src='/assets/icons/search.svg' alt='search' width={20} height={10} />
@@ -91,7 +100,7 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
                 }}
                 onKeyDown={handleKeyDown}
                 placeholder='Search coin (Bitcoin, Ethereum..)'
-                className='bg-white sm:bg-gray-100 w-full px-1 focus:outline-none text-black rounded-xl dark:bg-[#222531] dark:sm:bg-gray-700 dark:text-white'
+                className='bg-white sm:bg-gray-100 w-full px-1 focus:outline-none text-black rounded-xl dark:bg-[#222531] dark:sm:bg-gray-800 dark:text-white'
                 value={query}
                 autoFocus
               />
@@ -116,7 +125,7 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
                   key={coin.id}
                   className={`${
                     index === active ? 'bg-gray-200 dark:bg-gray-600 active' : 'transparent'
-                  } py-2 px-2 sm:py-2 sm:px-1 text-sm rounded-md hover:bg-gray-200 hover:dark:bg-gray-600`}
+                  } py-2 px-2 sm:py-2 sm:px-1 text-sm rounded-xl hover:bg-gray-200 hover:dark:bg-gray-600`}
                 >
                   <Link
                     href={`/coin/${coin.id}`}
@@ -155,6 +164,32 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
               );
             })}
           </ul>
+          <div className='hidden sm:flex items-center justify-between text-xs px-4 py-2 absolute bottom-0 left-0 bg-gray-200 dark:bg-gray-700 w-full rounded-b-xl'>
+            <div className='flex items-center gap-1 text-gray-600 dark:text-gray-300'>
+              <div className='px-3 py-1 rounded-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
+                ESC
+              </div>
+              To Cancel
+            </div>
+            <div className='flex items-center gap-1 text-gray-600 dark:text-gray-300'>
+              <div className='px-3 py-1 rounded-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
+                ENTER
+              </div>
+              To View
+            </div>
+            <div className='flex items-center gap-1 text-gray-600 dark:text-gray-300'>
+              <div className='px-3 py-1 rounded-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
+                TAB
+              </div>
+              <div className='px-3 py-1 rounded-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
+                ↑
+              </div>
+              <div className='px-3 py-1 rounded-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
+                ↓
+              </div>
+              To Navigate
+            </div>
+          </div>
         </div>
       )}
     </>

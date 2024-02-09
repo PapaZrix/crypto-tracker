@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 
-function Trending({ item }: TrendingCoin) {
+export default function Coin({ item }: TrendingCoin) {
   return (
     <Link
       href={`/coin/${item.id}`}
@@ -26,16 +26,10 @@ function Trending({ item }: TrendingCoin) {
         </div>
         <div
           className={`flex gap-2 ${
-            item.data.price_change_percentage_24h.usd < 0
-              ? 'text-red-500'
-              : 'text-green-500'
+            item.data.price_change_percentage_24h.usd < 0 ? 'text-red-500' : 'text-green-500'
           } items-center w-full ml-2 text-md lg:text-lg xl:text-xl 2xl:text-2xl`}
         >
-          {item.data.price_change_percentage_24h.usd > 0 ? (
-            <BsArrowUp />
-          ) : (
-            <BsArrowDown />
-          )}
+          {item.data.price_change_percentage_24h.usd > 0 ? <BsArrowUp /> : <BsArrowDown />}
           <p>
             {item.data.price_change_percentage_24h.usd < 0
               ? Math.abs(item.data.price_change_percentage_24h.usd).toFixed(2)
@@ -47,5 +41,3 @@ function Trending({ item }: TrendingCoin) {
     </Link>
   );
 }
-
-export default Trending;

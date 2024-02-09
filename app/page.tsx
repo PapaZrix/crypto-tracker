@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import type { TrendingCoin } from '@/types';
-import Trending from '@/components/coin/Trending';
+import Coin from '@/components/trending/Coin';
+import Trending from '@/components/trending/Trending';
 
-async function getTrendingCoins() {
+async function getTrending() {
   const res = await fetch('https://api.coingecko.com/api/v3/search/trending', {
     next: { revalidate: 600 },
   });
@@ -16,11 +17,13 @@ async function getTrendingCoins() {
     .filter((coin: TrendingCoin) => coin.item.data.price.length < 10)
     .slice(0, 6);
 
-  return coins;
+  const nfts = data.nfts;
+
+  return { coins, nfts };
 }
 
 export default async function Home() {
-  const trendingCoins = await getTrendingCoins();
+  const trending = await getTrending();
 
   return (
     <div className='flex p-4 items-center w-full md:w-11/12 lg:w-10/12 min-h-[calc(100vh_-_83.26px)] mx-auto text-center sm:text-left gap-6 xl:gap-4 justify-center'>
@@ -52,11 +55,7 @@ export default async function Home() {
         </div>
       </div>
       <div className='w-full h-full flex-1 justify-center items-center hidden sm:flex flex-col gap-2'>
-        <div className='grid grid-cols-3 grid-rows-2 gap-4'>
-          {trendingCoins.slice(0, 6).map((coin: TrendingCoin) => {
-            return <Trending key={coin.item.name} item={coin.item} />;
-          })}
-        </div>
+        <Trending coins={trending.coins} nfts={trending.nfts} />
       </div>
     </div>
   );
