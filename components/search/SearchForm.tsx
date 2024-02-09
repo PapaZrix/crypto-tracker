@@ -3,12 +3,22 @@
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { SearchCoin as Coin } from '@/types';
+import { useRouter } from 'next/navigation';
 
 export default function SearchForm({ coins }: { coins: Coin[] }) {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [active, setActive] = useState(0);
+  const listRef = useRef<HTMLUListElement>(null);
+  const router = useRouter();
+
+  const matchingCoins = useMemo(() => {
+    return query.length !== 0
+      ? coins.filter((coin) => coin.name.toLowerCase().includes(query.toLowerCase()))
+      : null;
+  }, [query, coins]);
 
   const handleClickOutside = () => {
     setIsOpen(false);
@@ -17,10 +27,31 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
 
   const ref = useOnClickOutside(handleClickOutside);
 
-  const matchingCoins =
-    query.length !== 0
-      ? coins.filter((coin) => coin.name.toLowerCase().includes(query.toLowerCase()))
-      : null;
+  const setChange = () => {
+    const selected = listRef.current?.children.item(active);
+    if (selected) {
+      selected.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (matchingCoins && matchingCoins.length > 0) {
+      switch (e.key) {
+        case 'ArrowUp':
+          return active === 0 ? null : setActive(active - 1);
+        case 'ArrowDown':
+          return active + 1 === matchingCoins.length ? null : setActive(active + 1);
+        case 'Enter':
+          setIsOpen(false);
+          setQuery('');
+          setActive(0);
+          return router.push(`/coin/${matchingCoins[active].id}`);
+      }
+    }
+  };
 
   return (
     <>
@@ -54,7 +85,11 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
             <Image src='/assets/icons/search.svg' alt='search' width={20} height={10} />
             <div className='flex-grow'>
               <input
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setActive(0);
+                }}
+                onKeyDown={handleKeyDown}
                 placeholder='Search coin (Bitcoin, Ethereum..)'
                 className='bg-white sm:bg-gray-100 w-full px-1 focus:outline-none text-black rounded-xl dark:bg-[#222531] dark:sm:bg-gray-700 dark:text-white'
                 value={query}
@@ -70,45 +105,55 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
               className='cursor-pointer dark:invert'
             />
           </div>
-          <ul className='p-2 sm:p-0 flex flex-col my-2 overflow-y-scroll scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-200 dark:scrollbar-track-gray-500 dark:scrollbar-thumb-gray-600'>
-            {matchingCoins?.map((coin) => (
-              <li key={coin.id}>
-                <Link
+          <ul
+            ref={listRef}
+            className='p-2 sm:p-0 flex flex-col my-2 overflow-y-scroll scrollbar-none'
+          >
+            {matchingCoins?.map((coin, index) => {
+              setChange();
+              return (
+                <li
                   key={coin.id}
-                  href={`/coin/${coin.id}`}
-                  onClick={() => setIsOpen(!isOpen)}
-                  className='py-2 px-2 sm:py-2 sm:px-1 text-sm rounded-md flex justify-between items-center hover:bg-gray-200 hover:dark:bg-gray-600'
+                  className={`${
+                    index === active ? 'bg-gray-200 dark:bg-gray-600 active' : 'transparent'
+                  } py-2 px-2 sm:py-2 sm:px-1 text-sm rounded-md hover:bg-gray-200 hover:dark:bg-gray-600`}
                 >
-                  <div className='flex items-center gap-2 justify-between sm:justify-normal w-full'>
-                    <div className='flex items-center gap-2'>
-                      <Image
-                        className='rounded-full'
-                        src={coin.image}
-                        alt={coin.name}
-                        width={30}
-                        height={20}
-                      />
-                      <p className='font-bold'>{coin.name}</p>
-                      <p className='text-gray-400'>{coin.symbol.toUpperCase()}</p>
+                  <Link
+                    href={`/coin/${coin.id}`}
+                    onClick={() => setIsOpen(!isOpen)}
+                    className='flex justify-between items-center'
+                  >
+                    <div className='flex items-center gap-2 justify-between sm:justify-normal w-full'>
+                      <div className='flex items-center gap-2'>
+                        <Image
+                          className='rounded-full'
+                          src={coin.image}
+                          alt={coin.name}
+                          width={30}
+                          height={20}
+                        />
+                        <p className='font-bold'>{coin.name}</p>
+                        <p className='text-gray-400'>{coin.symbol.toUpperCase()}</p>
+                      </div>
+                      <p className='text-gray-400'>#{coin.market_cap_rank}</p>
                     </div>
-                    <p className='text-gray-400'>#{coin.market_cap_rank}</p>
-                  </div>
-                  <div className='hidden sm:flex gap-2 mr-2'>
-                    <p>${coin.current_price}</p>
-                    <p
-                      className={`${
-                        coin.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-emerald-600'
-                      }`}
-                    >
-                      {coin.price_change_percentage_24h < 0
-                        ? Number(coin.price_change_percentage_24h.toString().slice(1)).toFixed(2)
-                        : coin.price_change_percentage_24h.toFixed(2)}
-                      %
-                    </p>
-                  </div>
-                </Link>
-              </li>
-            ))}
+                    <div className='hidden sm:flex gap-2 mr-2'>
+                      <p>${coin.current_price}</p>
+                      <p
+                        className={`${
+                          coin.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-emerald-600'
+                        }`}
+                      >
+                        {coin.price_change_percentage_24h < 0
+                          ? Number(coin.price_change_percentage_24h.toString().slice(1)).toFixed(2)
+                          : coin.price_change_percentage_24h.toFixed(2)}
+                        %
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}
