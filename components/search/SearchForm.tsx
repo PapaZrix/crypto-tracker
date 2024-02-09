@@ -141,7 +141,7 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
                       <p>${coin.current_price}</p>
                       <p
                         className={`${
-                          coin.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-emerald-600'
+                          coin.price_change_percentage_24h < 0 ? 'text-red-500' : 'text-green-500'
                         }`}
                       >
                         {coin.price_change_percentage_24h < 0
