@@ -125,7 +125,7 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
                   key={coin.id}
                   className={`${
                     index === active ? 'bg-gray-200 dark:bg-gray-600 active' : 'transparent'
-                  } py-2 px-2 sm:py-2 sm:px-1 text-sm rounded-xl hover:bg-gray-200 hover:dark:bg-gray-600`}
+                  } last:mb-8 py-2 px-2 sm:text-[0.65rem] sm:py-2 sm:px-1 lg:text-sm rounded-xl hover:bg-gray-200 hover:dark:bg-gray-600`}
                 >
                   <Link
                     href={`/coin/${coin.id}`}
@@ -141,7 +141,7 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
                           width={30}
                           height={20}
                         />
-                        <p className='font-bold'>{coin.name}</p>
+                        <p className='font-bold whitespace-nowrap'>{coin.name}</p>
                         <p className='text-gray-400'>{coin.symbol.toUpperCase()}</p>
                       </div>
                       <p className='text-gray-400'>#{coin.market_cap_rank}</p>
@@ -164,27 +164,27 @@ export default function SearchForm({ coins }: { coins: Coin[] }) {
               );
             })}
           </ul>
-          <div className='hidden sm:flex items-center justify-between text-xs px-4 py-2 absolute bottom-0 left-0 bg-gray-200 dark:bg-gray-700 w-full rounded-b-xl'>
+          <div className='hidden sm:flex items-center justify-between text-[0.6rem] lg:text-xs px-2 lg:px-4 py-2 absolute bottom-0 left-0 bg-gray-200 dark:bg-gray-700 w-full rounded-b-xl'>
             <div className='flex items-center gap-1 text-gray-600 dark:text-gray-300'>
-              <div className='px-3 py-1 rounded-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
+              <div className='px-1 lg:px-3 py-1 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
                 ESC
               </div>
               To Cancel
             </div>
             <div className='flex items-center gap-1 text-gray-600 dark:text-gray-300'>
-              <div className='px-3 py-1 rounded-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
+              <div className='px-1 lg:px-3 py-1 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
                 ENTER
               </div>
               To View
             </div>
             <div className='flex items-center gap-1 text-gray-600 dark:text-gray-300'>
-              <div className='px-3 py-1 rounded-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
+              <div className='px-1 lg:px-3 py-1 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
                 TAB
               </div>
-              <div className='px-3 py-1 rounded-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
+              <div className='px-1 lg:px-3 py-1 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
                 ↑
               </div>
-              <div className='px-3 py-1 rounded-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
+              <div className='px-1 lg:px-3 py-1 rounded-md shadow-md bg-gray-400 dark:bg-gray-600 text-white font-semibold'>
                 ↓
               </div>
               To Navigate

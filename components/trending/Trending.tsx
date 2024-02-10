@@ -20,7 +20,7 @@ export default function Trending({ coins, nfts }: TrendingProps) {
 
   return (
     <div className='w-full'>
-      <div className='mb-5 text-lg flex'>
+      <div className='mb-5 text-sm xl:text-lg flex'>
         {currency.map((curr) => (
           <span
             onClick={() => setActive(curr.name)}
