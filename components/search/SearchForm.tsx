@@ -102,8 +102,6 @@ export default function SearchForm({ data }: SearchFormParams) {
           return active === 0 ? null : setActive(active - 1);
         case 'Tab':
           e.preventDefault();
-        // setChange();
-        // return active + 1 === matchingItems.length ? null : setActive(active + 1);
         case 'ArrowDown':
           setChange();
           return active + 1 === matchingItems.length ? null : setActive(active + 1);
@@ -246,14 +244,20 @@ export default function SearchForm({ data }: SearchFormParams) {
             {matchingNFts.map((nft: Nft, index: number) => (
               <li
                 data-index={index + matchingCoins.length}
-                className={`last:mb-8 py-2 px-4 sm:text-[0.65rem] sm:py-2 lg:text-sm rounded-xl hover:bg-gray-200 hover:dark:bg-gray-600 ${
+                className={`last:mb-8 sm:text-[0.65rem] lg:text-sm rounded-xl hover:bg-gray-200 hover:dark:bg-gray-600 ${
                   index + matchingCoins.length === active
                     ? 'bg-gray-200 dark:bg-gray-600 active'
                     : ''
                 }`}
                 key={nft.id}
               >
-                {nft.name}
+                <Link
+                  className='py-2 px-4 block w-full'
+                  href={`/nft/${nft.id}`}
+                  onClick={() => setIsOpen(!isOpen)}
+                >
+                  {nft.name}
+                </Link>
               </li>
             ))}
           </ul>
