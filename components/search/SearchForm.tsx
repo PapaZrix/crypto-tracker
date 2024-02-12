@@ -185,9 +185,7 @@ export default function SearchForm({ data }: SearchFormParams) {
             className='p-2 sm:p-0 flex flex-col my-2 overflow-y-scroll scrollbar-none'
           >
             <h2
-              className={`${
-                matchingCoins.length === 0 && 'hidden'
-              } pl-2 mb-2 text-gray-600 dark:text-gray-400`}
+              className={`${matchingCoins.length === 0 && 'hidden'} pl-2 mb-2 dark:text-gray-400`}
             >
               Cryptoassets
             </h2>
@@ -237,7 +235,7 @@ export default function SearchForm({ data }: SearchFormParams) {
             <h2
               className={`${
                 matchingNFts.length === 0 && 'text-gray-100 dark:text-gray-800'
-              } pl-2 my-2 text-gray-700 dark:text-gray-400`}
+              } pl-2 my-2 dark:text-gray-400`}
             >
               NFTs
             </h2>

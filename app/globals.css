@@ -18,6 +18,15 @@ table td {
   padding: 1rem 1.5rem 1rem 1.5rem;
 }
 
+#description h3 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-size: bold;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 @layer utilities {
   .active-theme {
     filter: invert(53%) sepia(98%) saturate(3332%) hue-rotate(0deg) brightness(104%) contrast(106%) !important;
