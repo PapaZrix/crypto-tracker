@@ -1,9 +1,10 @@
-import { NFT } from '@/types';
+import { formatValue } from '@/lib/utils';
+import { TrendingNft } from '@/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs';
 
-export default function NFT(item: NFT) {
+export default function NFT(item: TrendingNft) {
   return (
     <Link
       href={`/nft/${item.id}`}
@@ -20,9 +21,9 @@ export default function NFT(item: NFT) {
             className='w-8 lg:w-10 xl:w-12 rounded-full'
           />
           <div className='text-center lg:text-left text-[0.65rem] leading-3 lg:text-xs xl:text-sm'>
-            <h2>{item.name.length > 20 ? item.name.slice(0, 14).concat('...') : item.name}</h2>
+            <h2>{item.name.length > 20 ? item.name.slice(0, 20).concat('...') : item.name}</h2>
             <p>
-              {item.floor_price_in_native_currency.toFixed(2)}{' '}
+              {formatValue(item.floor_price_in_native_currency)}{' '}
               {item.native_currency_symbol.toUpperCase()}
             </p>
           </div>

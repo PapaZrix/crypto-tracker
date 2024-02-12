@@ -1,6 +1,6 @@
 'use client';
 
-import { TrendingCoin, NFT as NftType } from '@/types';
+import { TrendingCoin, TrendingNft } from '@/types';
 import Coin from './Coin';
 import NFT from './NFT';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ const currency = [
 
 type TrendingProps = {
   coins: TrendingCoin[];
-  nfts: NftType[];
+  nfts: TrendingNft[];
 };
 
 export default function Trending({ coins, nfts }: TrendingProps) {
@@ -20,7 +20,7 @@ export default function Trending({ coins, nfts }: TrendingProps) {
 
   return (
     <div className='w-full'>
-      <div className='mb-5 text-sm xl:text-lg flex'>
+      <div className='mb-5 text-sm 2xl:text-lg flex'>
         {currency.map((curr) => (
           <span
             onClick={() => setActive(curr.name)}

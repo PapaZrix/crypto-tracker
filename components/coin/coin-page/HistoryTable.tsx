@@ -1,24 +1,11 @@
 import type { CoinPageParams, Currency } from '@/types';
-import { checkPercentSign, checkPriceSign } from '@/utils/checkSign';
+import { checkPercentSign, checkPriceSign, getPriceChange } from '@/lib/utils';
 import InfoTooltip from './InfoTooltip';
-import { formatValue } from '@/utils/format';
 
 type HistoryTableProps = {
   coin: CoinPageParams;
   selectedCurrency: Currency;
 };
-
-function getPriceChange(price: any, percentage: any): any {
-  if (percentage === undefined) return 'N/A';
-  let priceChange = 0;
-  if (percentage < 0) {
-    priceChange = price * (percentage / 100);
-    return formatValue(priceChange);
-  } else {
-    let multiplier: number = percentage / 100;
-    return formatValue(price * (1 + multiplier) - price);
-  }
-}
 
 export default function HistoryTable({ coin, selectedCurrency }: HistoryTableProps) {
   return (

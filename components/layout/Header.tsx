@@ -6,21 +6,25 @@ import MobileNav from './MobileNav';
 import SearchForm from '../search/SearchForm';
 import { sidebarLinks } from '@/constants';
 
-async function getAllCoins() {
-  const res = await fetch(
-    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&locale=en',
-    { next: { revalidate: 2400 } }
-  );
+async function getData() {
+  const fetchPromises = [
+    fetch(
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&locale=en'
+    ),
+    fetch(
+      '  https://api.coingecko.com/api/v3/nfts/list?order=market_cap_native_desc&per_page=250&page=1'
+    ),
+  ];
 
-  if (!res.ok) throw new Error('Failed to fetch data');
+  const [res1, res2] = await Promise.all(fetchPromises);
 
-  const coins = await res.json();
-
-  return coins;
+  const coins = await res1.json();
+  const nfts = await res2.json();
+  return { coins, nfts };
 }
 
 const Header = async () => {
-  const coins = await getAllCoins();
+  const data = await getData();
 
   return (
     <header className='sticky md:relative top-0 z-40 shadow-sm bg-white dark:bg-gray-900 border-b-[1px] dark:border-orange-500'>
@@ -49,10 +53,10 @@ const Header = async () => {
             ))}
           </ul>
           <Theme />
-          <SearchForm coins={coins} />
+          <SearchForm data={data} />
         </div>
         <div className='flex sm:hidden gap-4 items-center'>
-          <SearchForm coins={coins} />
+          <SearchForm data={data} />
           <Theme />
           <MobileNav />
         </div>

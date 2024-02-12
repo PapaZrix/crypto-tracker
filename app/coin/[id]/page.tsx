@@ -15,6 +15,8 @@ export async function generateMetadata(
 
   const res = await fetch(`https://api.coingecko.com/api/v3/coins/${id}`);
 
+  if (res.status == 404) notFound();
+
   const coin: CoinPageParams = await res.json();
 
   return {
@@ -24,9 +26,7 @@ export async function generateMetadata(
     description:
       coin?.description?.en ??
       'This coin currently has no description available due to API restrictions',
-    keywords: `Buy ${coin?.name ?? 'COIN'} ${
-      coin?.symbol?.toUpperCase() ?? 'Coin'
-    } USD crypto`,
+    keywords: `Buy ${coin?.name ?? 'COIN'} ${coin?.symbol?.toUpperCase() ?? 'Coin'} USD crypto`,
     metadataBase: new URL('https://crypto-tracker-sepia-chi.vercel.app'),
     openGraph: {
       images: [coin?.image?.large ?? ''],

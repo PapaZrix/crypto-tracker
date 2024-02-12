@@ -1,6 +1,6 @@
 import Dropdown from '@/components/layout/Dropdown';
 import type { CoinPageParams, Currency } from '@/types';
-import { formatPrice, formatValue } from '@/utils/format';
+import { formatPrice } from '@/lib/utils';
 import Image from 'next/image';
 
 type TopInfoProps = {

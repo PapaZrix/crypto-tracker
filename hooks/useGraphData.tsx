@@ -1,7 +1,7 @@
 'use client';
 
 import { Currency, GraphData, Ticker } from '@/types';
-import { formatPrice } from '@/utils/format';
+import { formatPrice } from '@/lib/utils';
 import { useState } from 'react';
 
 export default function useGraphData() {

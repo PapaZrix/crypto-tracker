@@ -1,6 +1,5 @@
 import type { CoinPageParams, Currency } from '@/types';
-import { checkPercentSign } from '@/utils/checkSign';
-import { formatPrice } from '@/utils/format';
+import { checkPercentSign, formatPrice } from '@/lib/utils';
 
 type PriceInfoProps = {
   coin: CoinPageParams;
