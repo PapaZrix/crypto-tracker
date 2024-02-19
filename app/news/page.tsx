@@ -21,9 +21,12 @@ type ImageSource = {
 type Articles = [featured: Article[], trending: Article[], more: Article[]];
 
 async function getArticles() {
-  const res = await fetch('https://next-scraper-kappa.vercel.app/api/articles', {
-    cache: 'no-store',
-  });
+  const res = await fetch(
+    'https://next-scraper-kappa.vercel.app/api/articles',
+    {
+      cache: 'no-store',
+    }
+  );
 
   const data = await res.json();
 
@@ -60,12 +63,18 @@ export default async function News() {
                     target='_blank'
                     href={articles[0][0].link ?? ''}
                   >
-                    <h3 className='font-bold mb-3 text-2xl 2xl:text-3xl'>{articles[0][0].title}</h3>
+                    <h3 className='font-bold mb-3 text-2xl 2xl:text-3xl'>
+                      {articles[0][0].title}
+                    </h3>
                   </Link>
-                  <p className='text-md 3xl:text-lg'>{articles[0][0].content}</p>
+                  <p className='text-md 3xl:text-lg'>
+                    {articles[0][0].content}
+                  </p>
                 </div>
                 <div className='flex gap-8'>
-                  <p className='text-xs font-semibold'>By {articles[0][0].author}</p>
+                  <p className='text-xs font-semibold'>
+                    By {articles[0][0].author}
+                  </p>
                   <p className='text-xs'>{articles[0][0].date}</p>
                 </div>
               </div>
@@ -85,14 +94,18 @@ export default async function News() {
                         target='_blank'
                         href={article.link ?? ''}
                       >
-                        <p className='font-bold text-lg 2xl:text-xl mb-3'>{article.title}</p>
+                        <p className='font-bold text-lg 2xl:text-xl mb-3'>
+                          {article.title}
+                        </p>
                       </Link>
                       <p className='text-md sm:text-sm 2xl:text-md 3xl:text-lg'>
                         {article.content}
                       </p>
                     </div>
                     <div className='flex gap-8'>
-                      <p className='text-xs font-semibold'>By {article.author}</p>
+                      <p className='text-xs font-semibold'>
+                        By {article.author}
+                      </p>
                       <p className='text-xs'>{article.date}</p>
                     </div>
                   </div>
@@ -104,7 +117,11 @@ export default async function News() {
                             <source media={img.media} srcSet={img.srcset} />
                           </React.Fragment>
                         ))}
-                        <img className='rounded-md' src={article.imgSrc} alt={article.title} />
+                        <img
+                          className='rounded-md'
+                          src={article.imgSrc}
+                          alt={article.title}
+                        />
                       </picture>
                     </Link>
                   </div>
@@ -134,7 +151,9 @@ export default async function News() {
                       target='_blank'
                       href={article.link ?? ''}
                     >
-                      <p className='font-bold text-md lg:text-xl mb-3'>{article.title}</p>
+                      <p className='font-bold text-md lg:text-xl mb-3'>
+                        {article.title}
+                      </p>
                     </Link>
                     <div className='flex justify-between'>
                       <p className='text-xs'>{article.date}</p>
@@ -156,13 +175,13 @@ export default async function News() {
           ))}
         </div>
         <hr className='border-b-[1px] border-orange-500 border-x-0 border-t-0 w-full' />
-        <div className='flex flex-col sm:flex-row lg:gap-4 mt-8'>
+        <div className='w-full flex flex-col sm:flex-row lg:gap-4 mt-8'>
           <div className='my-2 sm:my-0 w-full flex flex-col gap-2 lg:gap-4 sm:w-1/2'>
             <h2 className='text-2xl my-2 font-bold text-center'>Opinion</h2>
             {articles[1].slice(4, 7).map((article: Article, index: number) => (
               <div className='w-full' key={index}>
                 <div className='w-full p-2 lg:p-4 flex gap-4 lg:gap-8'>
-                  <div className='w-full sm:w-[80px] lg:w-full max-w-[192px] h-[80px] lg:h-[108px] relative'>
+                  <div className='w-[140px] sm:w-[80px] lg:w-full max-w-[192px] h-[80px] lg:h-[108px] relative'>
                     <Link target='_blank' href={article.link ?? ''}>
                       <Image
                         className='rounded-md'
@@ -178,7 +197,9 @@ export default async function News() {
                       target='_blank'
                       href={article.link ?? ''}
                     >
-                      <p className='font-bold text-md lg:text-lg mb-3'>{article.title}</p>
+                      <p className='font-bold text-md lg:text-lg mb-3'>
+                        {article.title}
+                      </p>
                     </Link>
                     <div className='text-xs flex flex-col lg:flex-row gap-4 lg:gap-8 lg:items-center'>
                       <p className='font-semibold'>By {article.author}</p>
@@ -194,7 +215,7 @@ export default async function News() {
             {articles[1].slice(7).map((article: Article, index: number) => (
               <div className='w-full' key={index}>
                 <div className='w-full p-2 lg:p-4 flex gap-4 lg:gap-8'>
-                  <div className='w-full sm:w-[80px] lg:w-full max-w-[192px] h-[80px] lg:h-[108px] relative'>
+                  <div className='w-[140px] sm:w-[80px] lg:w-full max-w-[192px] h-[80px] lg:h-[108px] relative'>
                     <Link target='_blank' href={article.link ?? ''}>
                       <Image
                         className='rounded-md'
@@ -210,7 +231,9 @@ export default async function News() {
                       target='_blank'
                       href={article.title ?? ''}
                     >
-                      <p className='font-bold text-md lg:text-lg mb-3'>{article.title}</p>
+                      <p className='font-bold text-md lg:text-lg mb-3'>
+                        {article.title}
+                      </p>
                     </Link>
                     <div className='text-xs flex flex-col lg:flex-row gap-4 lg:gap-8 lg:items-center'>
                       <p className='font-semibold'>By {article.author}</p>
