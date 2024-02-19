@@ -5,6 +5,7 @@ export const themes = [
 ];
 
 export const sidebarLinks = [
+  { value: 'News', route: '/news', img: '/assets/icons/news.svg' },
   { value: 'Popular', route: '/popular', img: '/assets/icons/fire.svg' },
   {
     value: 'Exchanges',

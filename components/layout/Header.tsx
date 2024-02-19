@@ -9,10 +9,12 @@ import { sidebarLinks } from '@/constants';
 async function getData() {
   const fetchPromises = [
     fetch(
-      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&locale=en'
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&locale=en',
+      { next: { revalidate: 1200 } }
     ),
     fetch(
-      '  https://api.coingecko.com/api/v3/nfts/list?order=market_cap_native_desc&per_page=250&page=1'
+      '  https://api.coingecko.com/api/v3/nfts/list?order=market_cap_native_desc&per_page=250&page=1',
+      { next: { revalidate: 1200 } }
     ),
   ];
 
@@ -36,18 +38,22 @@ const Header = async () => {
           </p>
         </Link>
         <div className='hidden sm:flex gap-4 items-center relative'>
-          <ul className='hidden sm:flex gap-4 text-xl items-center'>
-            {sidebarLinks.map((link) => (
+          <ul className='hidden sm:flex gap-2 md:gap-4 text-md md:text-xl items-center'>
+            {sidebarLinks.map((link, index) => (
               <Link key={link.value} href={link.route}>
-                <li className='cursor-pointer flex gap-1 hover:text-orange-500 transition-all duration-200'>
+                <li
+                  className={`cursor-pointer flex ${
+                    index === 0 ? 'gap-2' : 'gap-1'
+                  } hover:text-orange-500 transition-all duration-200`}
+                >
                   <Image
                     src={link.img}
                     alt={link.value}
-                    width={25}
+                    width={index === 0 ? 20 : 25}
                     height={10}
                     className='dark:invert'
                   />
-                  <p>{link.value}</p>
+                  <p className='first:ml-2'>{link.value}</p>
                 </li>
               </Link>
             ))}
